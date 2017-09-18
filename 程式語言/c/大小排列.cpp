@@ -8,7 +8,7 @@ printf("請輸入5個數字\n");
 printf("排序前:"); 
 for(a=0;a<5;a++) 
 { 
-scanf("%d",&data[a]); 
+scanf("%d ",&data[a]); 
 } 
 for(a=5;a>=0;a--) { 
 	for(b=0;b<=a;b++) { 
