@@ -19,8 +19,12 @@ int main(){
 	if(B*B-4*A*C<0){
 		D=(B*B-4*A*C)*-1;
 		goto de;
-	}else{
+	}else if(B*B-4*A*C>0){
 			D=(B*B-4*A*C);	
+	}else if(B*B-4*A*C==0){
+		cout << "¿ù»~" <<endl;
+		system("pause");
+		system("exit");
 	}
 
 	cout << x1(A,D,B) << ","<<x2(A,D,B);
