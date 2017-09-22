@@ -18,10 +18,16 @@ int main(){
 	cin >> C;  
 	if(B*B-4*A*C<0){
 		D=(B*B-4*A*C)*-1;
+		goto de;
+	}else{
+			D=(B*B-4*A*C);	
 	}
-	D=(B*B-4*A*C);	
+
 	cout << x1(A,D,B) << ","<<x2(A,D,B);
-	
+	if(3>5){
+		de:;
+		cout << (-B/2*A)-sqrt(D)<<"i" << ","<<(-B/2*A)+sqrt(D)<<"i";		
+	}
 	
 	
 }
