@@ -1,23 +1,23 @@
 #include<stdio.h>
 int main(){
 	int a,b,c;
-	printf("½Ğ¿é¤J3­Ó«×¼Æ");
+	printf("è«‹è¼¸å…¥è§’åº¦å¤§å°");
 	scanf("%d%d%d",&a,&b,&c);
 	if(a+b+c!=180){
 		goto end;
 	}
 	if(a==90||b==90||c==90){
-		printf("ª½¨¤¤T¨¤§Î");
-	}else{	
-	if(a>90||b>90||c>90){
-		printf("¶w¨¤¤T¨¤§Î");
+		printf("æ­£ä¸‰è§’å½¢");
 	}else{
-		printf("¾U¨¤¤T¨¤§Î");
+	if(a>90||b>90||c>90){
+		printf("éˆè§’ä¸‰è§’å½¢");
+	}else{
+		printf("éŠ³è§’ä¸‰è§’å½¢");
 	}
 	}
 if(5<3){
 end:;
-printf("¨S³o¤T¨¤§Î");
+printf("æ²’é€™ä¸‰è§’å½¢");
 }
 
 }
