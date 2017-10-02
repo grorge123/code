@@ -1,23 +1,31 @@
+#include<cstdlib>
+#include<string>
 #include<stdio.h>
-int main(){
-	int X,i,A=0,B=0;
-	scanf("%d",&X);
-	while(X!=0){
-		if(i%2==0){
-			A=A+X%10;
-			X=X/10;
-//			printf("%d\n",A);
-		}else{
-			B=B+X%10;
-			X=X/10;
-//			printf("%d\n",B);
-		}
-	i++;
-	}
-//	printf("%d %d\n",A,B);
-	if(A-B<0){
-		printf("%d",(A-B)*-1);
-	}else{
-		printf("%d",A-B);
-	}
+#include <iostream>
+using namespace std;
+int main( )
+{
+int A=0,B=0,i2[1000];
+char i[1000];
+for(int q=0;q<1000;q++){
+	i[q]='0';
+	i2[q]=0;
+}
+cin.getline(i,1000);
+for(int q=0;q<1000;q++){
+	i2[q]=i[q]-'0';
+//	cout <<i2[q] <<endl;
+}
+for(int q=0;q<1000;q++){
+	if(i2[q]==-48)
+	i2[q]=i2[q+48];
+	A=A+i2[q];
+	q++;
+//	cout << A << " ";
+	if(i2[q]==-48)
+	i2[q]=i2[q+48];
+	B=B+i2[q];
+//	cout << B << endl;
+}
+cout << abs(A-B);
 }
