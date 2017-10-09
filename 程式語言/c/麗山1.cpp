@@ -5,9 +5,13 @@ int main (){
 	float money;
 	printf("請輸入起始時間和結束時間");
 	scanf("%d %d",&s1,&s2);
-	if(s1>1200){s1=2400-s1;}
-	if(s2>1200){s2=2400-s2;}
-	time=s1+s2;
+    if(s2<s1){
+        if(s1>1200){s1=2400-s1;}
+        if(s2>1200){s2=2400-s2;}
+        time=s1+s2;
+    }else{
+        time=s2-s1;
+    }
 //printf("%d\n",time);
 	if(time>100){
     time=(time%100)+((time/100)*60);
