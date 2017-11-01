@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <style>
+            .w {
+                height: 100px;
+                color: white;
+                line-height: 100px;
+                font-size: 36px;
+                text-align: center;
+            }
+            #disp {
+                background-color: #888888;
+            }
+            #button {
+                background-color: #595959;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="w" id="disp">
+                0
+            </div>
+            <div class="w" id="button">
+                點我+1
+            </div>
+        </div>
+        <script>
+            var n = 0;
+            var btn = document.querySelector('#button'),
+                disp = document.querySelector('#disp');
+            btn.onclick = function() {
+                console.log('hi');
+                disp.innerHTML = ++n;
+            };
+        </script>
+    </body>
+</html>

@@ -1,0 +1,4 @@
+import requests
+
+res = requests.get('https://l.facebook.com/l.php?u=http%3A%2F%2Fwww.iavbobo.info%2FpushPeople%3Fcode%3DAL1YCR23I&h=ATPWD1v0UFFigiuynxg9C9SjNho1X8ynZDmDihxcY8w0YW0R2jH2UWItj52yYLWfM28DTKnHPYxRJjws6QLyLZK5fThLnBYKv31CS81anyUSdn9EYNhGJKHYGMv0HLhTQ8s2i3R9RZDSGK7AjWuIOfltwclZ1RQ3NYC_Ua8ra_kHXQUNRolbzxESFkoRxktJYgpcZNYavaz6Bf1fQZROpe-9384reh_LX0YFAdSnfu7yjSH9F3vjhMqY4Tl0bkmlHfAqrSkIYYnqvSFvLeRz5ySLf96wnKGFDQ')
+print(res.text)
