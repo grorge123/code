@@ -26,6 +26,7 @@ int main() {
                     for(int sd=strlen(d[q]);sd>-1;sd--){
                         if(s[q][sd]>s[q+1][sd]){
                     swap(s[q],s[q+1]);
+                    swap(d[q],d[q+1]);
                         }
                     }
                 }
