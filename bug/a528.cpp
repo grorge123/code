@@ -18,22 +18,38 @@ int main() {
         }
         for(int i=0;i<a;i++){
             for(int q=0;q<a-1;q++){
-                if(strlen(d[q])>strlen(d[q+1])){
-                    swap(s[q],s[q+1]);
-                    swap(d[q],d[q+1]);
-                }
-                if(strlen(d[q])>=strlen(d[q+1])){
-                    for(int sd=strlen(d[q]);sd>-1;sd--){
-                        if(s[q][sd]>s[q+1][sd]){
-                    swap(s[q],s[q+1]);
-                    swap(d[q],d[q+1]);
+                int a=strlen(d[q]),b=strlen(d[q+1]);
+                if(d[q+1][0]!='-'){
+                    if(a>b){
+                        swap(s[q],s[q+1]);
+                        swap(d[q],d[q+1]);
+                    }
+                    if(a>=b){
+                        for(int sd=a;sd>-1;sd--){
+                            if(s[q][sd]>s[q+1][sd]){
+                        swap(s[q],s[q+1]);
+                        swap(d[q],d[q+1]);
+                            }
+                        }
+                    }
+                }else{
+                    if(a<b){
+                        swap(s[q],s[q+1]);
+                        swap(d[q],d[q+1]);
+                    }
+                    if(a>=b){
+                        for(int sd=a;sd>-1;sd--){
+                            if(s[q][sd]<s[q+1][sd]){
+                        swap(s[q],s[q+1]);
+                        swap(d[q],d[q+1]);
+                            }
                         }
                     }
                 }
             }
         }
         for(int i=0;i<a;i++){
-            cout << s[i]<<endl;
+            cout << d[i]<<endl;
         }
     }
 }
