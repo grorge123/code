@@ -1,0 +1,78 @@
+#include<iostream>
+#include<string.h>
+#include<vector>
+#include<stdlib.h>
+using namespace std;
+struct ass{
+    int x;
+    int y;
+};
+int main(){
+    int n,m,x1,y1,x2,y2,o;
+    cin >> n >> m;
+    int s[100][100]={};
+    cin >>x1>>y1>>x2>>y2>>o;
+    vector<struct ass> arry;
+    int a=(abs(x1-x2))+(abs(y1-y2))+1;
+//    arry.resize((abs(x1-x2))+(abs(y1-y2))+10);
+arry.resize(1000);
+    for(int i=0;i<a;i++){
+        arry[i].x=x1;
+        arry[i].y=y1;
+//        cout << "x"<<arry[i].x<<"y" <<arry[i].y;
+        if(x1>x2)
+            x1--;
+        else if(x1<x2)
+            x1++;
+        if(y1>y2)
+            y1--;
+        else if(y1<y2)
+            y1++;
+    }
+//    for(int i=0;i<n;i++){
+//        for(int q=0;q<m;q++){
+//            cout << s[i][q];
+//        }
+//        cout << endl;
+//    }
+    for(int i=0;i<a;i++){
+        s[arry[i].x][arry[i].y]=1;
+//        cout << " "<<"s["<<arry[i].x<<"]["<<arry[i].y<<"]";
+    }
+    for(int ss=0;ss<o;ss++){
+        int com;
+        struct ass master;
+        master.x=arry[0].x;
+        master.y=arry[0].y;
+        cin >> com;
+        s[arry[a-1].x][arry[a-1].y]=0;
+        arry.pop_back();
+        if(com==1){
+            if(arry[0].x-1<0||s[arry[0].x-1][arry[0].y]!=0)break;
+            master.x--;
+            arry.insert(arry.begin(),master);
+        }else if(com==0){
+            if(arry[0].x+1>=n||s[arry[0].x+1][arry[0].y]!=0)break;
+            master.x++;
+            arry.insert(arry.begin(),master);
+//            cout << arry[0].x<<" "<<arry[0].y;
+        }else if(com==2){
+            if(arry[0].y+1>=m||s[arry[0].x][arry[0].y+1]!=0)break;
+            master.y++;
+            arry.insert(arry.begin(),master);
+        }else if(com==3){
+            if(arry[0].y-1<0||s[arry[0].x][arry[0].y-1]!=0)break;
+            master.y--;
+            arry.insert(arry.begin(),master);
+        }
+        s[arry[0].x][arry[0].y]=1;
+    }
+    for(int i=0;i<n;i++){
+        for(int q=0;q<m;q++){
+            cout << s[i][q];
+        }
+        cout <<endl;
+    }
+//    cout <<endl<<endl;
+//    }
+}
