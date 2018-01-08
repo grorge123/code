@@ -32,7 +32,7 @@ void other(void){
             g[x][y]='O';
             return;
         }
-        cout <<"請勿覆蓋旗子";
+        cout <<"請勿重複下"<<endl;
         result=1;
     }
     if(result==0)
@@ -79,15 +79,17 @@ void com(void){
         }
     }
     int ran=1;
+    srand(time(NULL));
+    int a=(rand()%9);
     while(ran){
-        srand(time(NULL));
-        int a=(rand()%9);
         int x=a/3,y=a%3;
         if(g[x][y]=='.'){
             g[x][y]='X';
             ran=0;
             return;
         }
+        a++;
+        a%9;
     }
 }
 void referee(void){
@@ -176,6 +178,7 @@ int main(){
         referee();
     }
     cout << "遊戲結束";
+    system("pause");
     return 0;
 
 }
