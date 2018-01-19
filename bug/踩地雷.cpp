@@ -11,13 +11,16 @@ struct df{
     int x;
     int y;
 };
+<<<<<<< HEAD
 int flagint=0;
+=======
+>>>>>>> 4b987b7eb3a5acf724a951a6bd3e27eda5b00b1c
 smap ma[1000][1000]={};
 int end=0;
 void randf(int n,int m,int a){
     int i;
     unsigned seed;
-    seed = (unsigned)time(NULL); // ¨ú±o®É¶¡§Ç¦C
+    seed = (unsigned)time(NULL); // å–å¾—æ™‚é–“åºåˆ—
     srand(seed);
     for(i=0; i<a;i++){
         int x=rand()%n;
@@ -76,6 +79,8 @@ void gprint(int n,int m){
 }
 void write(int n,int m){
     int fin[8][2]={{1,0},{1,1},{0,1},{-1,1},{0,-1},{-1,-1},{-1,0},{1,-1}};
+<<<<<<< HEAD
+=======
     for(int i=0;i<n;i++){
         for(int q=0;q<m;q++){
             if(ma[i][q].num!=-1){
@@ -104,7 +109,130 @@ void bfs(int x,int y,int n,int m){
     now.y=y;
     q.push(now);
     while(q.empty()==0){
+//        cout << "é€²å…¥dfs";
+        df will;
+        will=q.front();
+        q.pop();
+        for(int i=0;i<8;i++){
+            if(will.x+fin[i][0]>=0&&will.x+fin[i][0]!=n&&will.y+fin[i][1]>=0&&will.y+fin[i][1]!=m&&ma[will.x+fin[i][0]][will.y+fin[i][1]].num==0&&ma[will.x+fin[i][0]][will.y+fin[i][1]].ty==0){
+                ma[will.x+fin[i][0]][will.y+fin[i][1]].ty=2;
+                now.x=will.x+fin[i][0];
+                now.y=will.y+fin[i][1];
+//                cout << now.x<<" "<<now.y<<endl;
+                q.push(now);
+            }else if(will.x+fin[i][0]>=0&&will.x+fin[i][0]!=n&&will.y+fin[i][1]>=0&&will.y+fin[i][1]!=m){
+#include<iostream>
+#include<stdlib.h>
+#include<time.h>
+#include<queue>
+using namespace std;
+struct smap{
+    int ty;
+    int num;
+};
+struct df{
+    int x;
+    int y;
+};
+int flagint=0;
+smap ma[1000][1000]={};
+int end=0;
+void randf(int n,int m,int a){
+    int i;
+    unsigned seed;
+    seed = (unsigned)time(NULL); // å–å¾—æ™‚é–“åºåˆ—
+    srand(seed);
+    for(i=0; i<a;i++){
+        int x=rand()%n;
+        int y=rand()%m;
+//        cout << "x"<<x<<"y"<<y;
+        if(ma[x][y].num!=-1)
+            ma[x][y].num=-1;
+        else
+            i--;
+    }
+}
+void tprint(int n,int m){
+    for(int i=0;i<n;i++){
+        for(int q=0;q<m;q++){
+            if(ma[i][q].num!=-1)
+                cout << ma[i][q].num;
+            else
+                cout << "*";
+        }
+        cout << endl;
+    }
+}
+void print(int n,int m){
+    for(int i=0;i<n;i++){
+        for(int q=0;q<m;q++){
+            if(ma[i][q].ty==0)
+                cout << "-";
+            else if(ma[i][q].ty==1)
+                cout << "^";
+            else if(ma[i][q].ty==3)
+                cout << "?";
+            else
+                cout << ma[i][q].num;
+        }
+        cout << endl;
+    }
+}
+void gprint(int n,int m){
+    for(int i=0;i<n;i++){
+        for(int q=0;q<m;q++){
+            if(ma[i][q].num!=-1){
+                if(ma[i][q].ty==0)
+                    cout << "-";
+                else if(ma[i][q].ty==1)
+                    cout << "^";
+                else if(ma[i][q].ty==2)
+                    cout << ma[i][q].num;
+                else if(ma[i][q].ty==3)
+                    cout << "?";
+            }else{
+                cout << "*";
+            }
+        }
+        cout << endl;
+    }
+}
+void write(int n,int m){
+    int fin[8][2]={{1,0},{1,1},{0,1},{-1,1},{0,-1},{-1,-1},{-1,0},{1,-1}};
+>>>>>>> 4b987b7eb3a5acf724a951a6bd3e27eda5b00b1c
+    for(int i=0;i<n;i++){
+        for(int q=0;q<m;q++){
+            if(ma[i][q].num!=-1){
+                ma[i][q].num=0;
+                for(int s=0;s<8;s++){
+                    if(ma[i+fin[s][0]][q+fin[s][1]].num==-1)
+                    ma[i][q].num++;
+                }
+            }
+        }
+    }
+}
+void whilt(int n,int m){
+    for(int i=0;i<n;i++){
+        for(int q=0;q<m;q++){
+            ma[i][q].ty=0;
+        }
+    }
+}
+void bfs(int x,int y,int n,int m){
+    queue<df> q;
+    ma[x][y].ty=2;
+    int fin[8][2]={{1,0},{1,1},{0,1},{-1,1},{0,-1},{-1,-1},{-1,0},{1,-1}};
+    df now;
+    now.x=x;
+    now.y=y;
+    q.push(now);
+    while(q.empty()==0){
+<<<<<<< HEAD
 //        cout << "¶i¤Jdfs";
+=======
+//        cout << "é€²å…¥dfs";
+>>>>>>> 4b987b7eb3a5acf724a951a6bd3e27eda5b00b1c
         df will;
         will=q.front();
         q.pop();
@@ -129,7 +257,11 @@ void flag (int x,int y,int a){
             return;
         }
     }else{
+<<<<<<< HEAD
         cout << "ºX¤l¤£¯à´¡¶W¹L¦a¹p"<<endl;
+=======
+        cout << "æ——å­ä¸èƒ½æ’è¶…éåœ°é›·"<<endl;
+>>>>>>> 4b987b7eb3a5acf724a951a6bd3e27eda5b00b1c
         return;
     }
     if(ma[x][y].ty==1){
@@ -160,7 +292,7 @@ void doit(int x,int y,int z,int n,int m,int a){
             ma[x][y].ty=2;
         }
     }else{
-    cout << "µL¦¹«ü¥O";
+    cout << "ç„¡æ­¤æŒ‡ä»¤";
     return;
     }
 }
@@ -171,36 +303,52 @@ void referee(int n,int m){
                 return;
         }
     }
+<<<<<<< HEAD
     cout << "§AÄ¹¤F"<<endl;
+=======
+    cout << "ä½ è´äº†"<<endl;
+>>>>>>> 4b987b7eb3a5acf724a951a6bd3e27eda5b00b1c
     end=1;
     return;
 }
 int main(){
     int n,m,a=1e9;
-    cout << "½Ğ¤Jªø¼e:";
+    cout << "è«‹å…¥é•·å¯¬:";
     cin >> n>>m;
     while(a>n*m/2){
-        cout << "½Ğ¿é¤J¦a¹p¼Æ¶q:";
+        cout << "è«‹è¼¸å…¥åœ°é›·æ•¸é‡:";
         cin >>a ;
         if(a>n*m/2)
-            cout << "¦a¹p¼Æ»İ¤p©óªø­¼¼e°£2";
+            cout << "åœ°é›·æ•¸éœ€å°æ–¼é•·ä¹˜å¯¬é™¤2";
     }
-    cout << "¹CÀ¸ªì©l¤Æ"<<endl;
+    cout << "éŠæˆ²åˆå§‹åŒ–"<<endl;
     randf(n,m,a);
     write(n,m);
     while(end==0){
         print(n,m);
         int x,y,z;
+<<<<<<< HEAD
         cout << "½Ğ¿é¤Jxy®y¼Ğ©M°õ¦æ°Ê§@1¬O´¡ºX2¬O½ò¤U¥h";
+=======
+        cout << "è«‹è¼¸å…¥xyåº§æ¨™å’ŒåŸ·è¡Œå‹•ä½œ1æ˜¯æ’æ——2æ˜¯è¸©ä¸‹å»";
+>>>>>>> 4b987b7eb3a5acf724a951a6bd3e27eda5b00b1c
         cin >>x>>y>>z;
         x--;y--;
         if(ma[x][y].ty!=2)
             if(x<0||y<0||x>n||y>m)
+<<<<<<< HEAD
                 cout << "¶W¥X½d³ò"<<endl;
             else
                 doit(x,y,z,n,m,a);
         else
             cout << "¦¹®æ¤w¶}µo";
+=======
+                cout << "è¶…å‡ºç¯„åœ"<<endl;
+            else
+                doit(x,y,z,n,m,a);
+        else
+            cout << "æ­¤æ ¼å·²é–‹ç™¼";
+>>>>>>> 4b987b7eb3a5acf724a951a6bd3e27eda5b00b1c
         if(flagint==a)
             referee(n,m);
     }
