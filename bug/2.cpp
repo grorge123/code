@@ -1,60 +1,42 @@
 #include <stdio.h>
-#include <ctype.h>
-bool isAnagram(
-char str1[],char str2[]
-)
-{
-
+#include<iostream>
+using namespace std;
+#include <string.h>
+int MazeSize = 7, CommandLen = 5+1, NumCommands = 10;
+void RobotMove(int *x,int *y,const char maze[MazeSize][MazeSize],const char commands[NumCommands][CommandLen]){
     int t=0;
-    int des[26]={},des2[26]={};
-    while(str1[t]!='\0'){
-        if(str1[t]!=' '){
-            if(str1[t]>='a'&&str1[t]<='z'){
-                des[str1[t]-'a']++;
-//                printf("%d\n",str1[t]-'a');
-            }else{
-                des[str1[t]-'A']++;
-//                printf("%d\n",str1[t]-'A');
-            }
-        }
-        t++;
+    while(commands[t]!="END"){
+        if(commands[t]=="UP"&&maze[*x][*y+1]=='.')*y+=1;
+        if(commands[t]=="DOWM"&&maze[*x][*y-1]=='.')*y-=1;
+        if(commands[t]=="RIGHT"&&maze[*x+1][*y]=='.')*x+=1;
+        if(commands[t]=="LEFT"&&maze[*x-1][*y]=='.')*x-=1;
+    t++;
     }
-    t=0;
-    while(str2[t]!='\0'){
-        if(str2[t]!=' '){
-            if(str2[t]>='a'&&str2[t]<='z'){
-                des2[str2[t]-'a']++;
-//                printf("%d\n",str2[t]-'a');
-            }else{
-                des2[str2[t]-'A']++;
-//                printf("%d\n",str2[t]-'A');
-            }
-        }
-        t++;
-    }
-    for(int i=0;i<26;i++){
-        if(des[i]!=des2[i])
-            return false;
-    }
-    return true;
 
 }
-// ----------------------------------------------
+
+// ------------------------------------------
 int main()
 {
-    char str[2][21]= {};
-
+    char maze[MazeSize][MazeSize]= {};
+    for (int i=MazeSize-1; i>=0; i-=1)
+    {
+        for (int j=0; j<MazeSize; j+=1)
+        {
+            scanf(" %c", &maze[i][j]);
+        }
+    }
+    char commands[NumCommands][CommandLen]= {};
     int t=0;
-    char input;
-    while((input=getchar())!='\n'){
-        str[0][t]=input;
+    scanf("%s",commands[t]);
+    while(commands[t]!="END"){
         t++;
+        scanf("%s",commands[t]);
     }
-    t=0;
-    while((input=getchar())!='\n'){
-        str[1][t]=input;
-        t++;
-    }
-    printf("[%s] and [%s] are %sanagrams.\n", str[0], str[1], isAnagram(str[0], str[1])?"":"not ");
+
+    int x=0, y=0;
+    scanf("%d%d", &y, &x);
+    RobotMove(&x, &y, maze, commands);
+    printf("Now the robot is at (%d, %d).\n", y, x);
     return 0;
 }
