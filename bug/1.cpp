@@ -1,43 +1,39 @@
-#include <stdio.h>
-void print(const int data[], int size)
-{
-    for (int i=0; i<size; i+=1)
-        printf("%d ", data[i]);
-}
-void print(const int (*data)[3], int row)
-{
-    for (int i=0; i<row; i+=1)
-    {
-        print(data[i], 3);
-        printf("\n");
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int LL;
+#define F first
+#define S second
+#define PB pust_back
+#define PI pair<int,int>
+#define sloop(i,n,j) for(int i=j;i<n;i++)
+#define sloop1(i,n,j) for(int i=j;i<=n;i++)
+#define bloop(i,n,j) for(int i=n;i>j;i--)
+#define bloop1(i,n,j) for(int i=n;i>=j;i--)
+int main(){
+    int n,d[400000];
+    cin >> n;
+    sloop(i,n,0){
+        int a;
+        cin >>a;
+        if(a==0)d[i]=0;
+        if(a>0)d[i]=1;
+        if(a<0)d[i]=-1;
     }
-}
-void print(const int (*data)[2], int row)
-{
-    for (int i=0; i<row; i+=1)
-    {
-        print(data[i], 2);
-        printf("\n");
-    }
-}
-int main()
-{
-    int a[2][3] = {}, b[4][2] = {};
-    for (int i=0; i<2; i+=1)
-    {
-        for (int j=0; j<3; j+=1)
-        {
-            scanf("%d", &a[i][j]);
+    int max=0,now=0;
+    sloop(i,n-1,0){
+        if(abs(d[i]-d[i+1])!=0){
+            now++;
+        }else{
+            now=0;
+        }
+        if(now>max){
+            max=now;
         }
     }
-    print(a,2);
-    for (int i=0; i<4; i+=1)
-    {
-        for (int j=0; j<2; j+=1)
-        {
-            scanf("%d", &b[i][j]);
-        }
+    if(max<=1){
+        cout<<"Talking Forever!";
+        return 0;
     }
-    print(b,4);
+    cout<< max+1;
     return 0;
 }
