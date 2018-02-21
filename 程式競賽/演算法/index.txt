@@ -1,4 +1,4 @@
-dijkstra(最短路徑)
+dijkstra(最短路徑)(ok)
 folyd
 tarjan
 線段樹
@@ -11,4 +11,5 @@ LIS(ok)
 LCS(ok)
 BFS
 DFS
-二分收巡
+二分收巡(ok)
+拓撲排序(ok)
