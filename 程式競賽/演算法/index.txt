@@ -1,0 +1,14 @@
+dijkstra(最短路徑)
+folyd
+tarjan
+線段樹
+kruskal
+啟發式合併
+disjoint set(併查集)
+Backtracking(ok)
+hashtable
+LIS(ok)
+LCS(ok)
+BFS
+DFS
+二分收巡
