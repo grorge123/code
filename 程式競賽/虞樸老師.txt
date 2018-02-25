@@ -1,0 +1,190 @@
+fishtoby
+94099
+
+
+
+你可能會遇到的比賽(舊版):
+
+2017 9月 校內初賽 / 複賽
+
+2017 11月 北市賽
+
+這附近貌似有個叫軟比的垃圾比賽，目前試辦的最爛的比賽
+
+2017 12月 全國賽$
+
+2017 11/12月 NPSC初賽/決賽
+
+2018 3月 TOI初選
+
+2018 3月 TOI 1!
+
+2018 4月 TOI 2!
+
+2018 5月 APIO
+
+2018 7月底 IOI
+
+各種 GOOGLE CODE JAM 、 FACEBOOK HACKERCUP 、 CODEFORCES 、 HACKERRANK 、 ATCODER 、 RUSSIACUP ...
+
+--
+
+OJ:
+GREENJUDGE
+
+TIOJ
+
+ZEROJUDGE
+
+CODEFORCES
+
+UVA
+
+POI
+
+ATCODER
+
+PEG
+
+(基本)要會的東西
+STL:{
+	vector ( the easy way to discrete numbers )離散數學
+	queue
+	stack
+	deque
+	map
+	set
+	multiset
+	priority_queue
+	---------------------
+	unordered map
+	unordered set
+	tuple
+}
+BFS:{
+	simple graph bfs 圖形bfs
+	dijkstra (floyd first is ok)
+	spfa (bellman - ford first is ok)
+	other status (一堆油瓶 、 位元 .. )
+}
+DFS:{
+	just dfs @@
+}
+DP: {
+	knapsack problem背包問題{
+		simple 1-1
+		infinity knapsack
+		multi knapsack{
+			monotonous O(w)
+			binary split O(wdlogn) // d = 錢幣種類數
+		}
+	}
+	plug dp
+	binary dp
+	floyd
+	lcs
+	lis
+	and some simple sequences problems
+
+	--
+	monotonous optimization
+	quadrilateral optimization
+}
+string : {
+	trie
+	KMP
+	Z-value
+	hash
+	suffix array4
+	lcp
+	--
+	suffix tree
+	Monarch
+	aho-corasick
+	字典樹
+}
+graph : {
+	disjoint set ( djs with value, djs that can redo .. )並查及
+	Articulate vertex (tarjan)
+	bridge(cut - edge) (tarjan)
+	2-sat
+	bcc (tarjan)
+	scc (kosaraju or tarjan)
+	匈牙利算法
+	km算法
+	euler-path (circle)
+	hamilton path (circle)
+	O(N^2) hamilton path (circle) on a dense graph
+	雙連通分量
+	凸包
+	強連通分量
+	最大團
+	平面圖性質
+	k短路(由SPFA搭配Dijkstra求得)
+}
+雜項 : {
+	整體二分
+	大數運算
+	操作分治
+	模擬退火
+	PBDS_SD(ROPE,PQ,TREE..)
+	輪廓線
+	XdYd優化
+}
+geometry : {
+	convex hull
+	screw caliper
+	some basic intersect problem
+}
+data-structure 資料結構{
+	segment tree 線段樹
+	fenwick-tree(BIT)
+	2d segment tree
+	treap (basically suggest merge split treap)
+	heavy light decomp.
+	centroid decomp
+	centroid tree
+
+	persistant data structure
+
+}
+math(?){
+	extgcd
+	miller rabin
+	chinese remain theory ( and the case of gcd(ni,nj) > 1)
+	euler function
+	mobius function
+	matrix multiply
+	pollard's rho
+}
+divide and conquer{
+	binary search
+	closest pair
+	binary search of a while
+}
+pbds(Policy based data structures????){
+	priority_queue
+	rope
+	tree
+	cc / gp hash_table	
+}
+
+
+
+Atcoder : 20
+Hackerrank : 6
+HOJ : ??(系統壞了)
+TIOJ : 102
+SPOJ : 很少
+BZOJ : 24
+TSINSEN : 很少
+POI : 31
+ZJ : 605+107(分身)
+NPSC題 : (ZEROJUDGE上)被關掉了 猜測80附近
+TOJ : 31
+UVA : 158
+CF : 分身好幾個很難統計 至少600UP
+POJ : 37 
+各種比賽遇到後回去沒寫的題目 (不包括上面的NPSC) : 約 106 題 
+-- 總計約 1900 ~ 2100題之間 --
+-- 粗略統計也寫了快200000行--
