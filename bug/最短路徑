@@ -1,0 +1,108 @@
+/**********************************************************************************/  
+/*  Problem: d062 "5.最短路徑" from 101年彰雲嘉區複賽                                        */  
+/*  Language: C++                                                                 */  
+/*  Result: NA (score:80) on ZeroJudge                                            */  
+/*  Author: grorge at 2018-02-22 19:35:22                                         */  
+/**********************************************************************************/  
+  
+#include<stdio.h>  
+#include<string.h>  
+#include<iostream>  
+#include<vector>  
+using namespace std;  
+int main(){  
+    char s[10][10],s2[4][2]={{1,0},{0,-1},{0,1},{-1,0}};  
+    int fo[28][28]={};  
+    for(int i=0;i<=5;i++){  
+        for(int q=0;q<=5;q++){  
+            if(i==0||i==5||q==0||q==5)  
+                s[i][q]='z';  
+            else  
+                s[i][q]='a'+(i-1)*4+q-1;  
+        }  
+    }  
+    for(int i=0;i<16;i++){  
+        for(int q=0;q<16;q++){  
+            fo[i][q]=99;  
+        }  
+    }  
+//    for(int i=0;i<=5;i++){  
+//        for(int q=0;q<=5;q++){  
+//            cout << s[i][q];  
+//        }  
+//        cout << endl;  
+//    }  
+    for(int i=0;i<16;i++){  
+//        cout << s[i/4+1][i%4+1]<<endl;  
+        for(int q=0;q<4;q++){  
+            if(s[i/4+s2[q][0]+1][i%4+s2[q][1]+1]!='z'){  
+//                cout <<(char)('a'+i)<<" "<<s[i/4+s2[q][0]+1][i%4+s2[q][1]+1]<<endl;  
+//                cout << i<<s[i/5+s2[q][0]+1][i%5+s2[q][1]+1]<<endl;  
+                fo[i][s[i/4+s2[q][0]+1][i%4+s2[q][1]+1]-'a']=1;  
+                fo[i][i]=0;  
+//                fo[s[i/5+s2[q][0]+1][i%5+s2[q][1]+1]-'a'][i]=1;  
+            }  
+        }  
+    }  
+//    for(int i=0;i<16;i++){  
+//        for(int q=0;q<16;q++){  
+//            cout << fo[i][q]<<' ';  
+//        }  
+//        cout << endl;  
+//    }  
+//    cout << endl<<endl;  
+    fo[5][6]=99;  
+    fo[6][5]=99;  
+    fo[10][14]=99;  
+    fo[14][10]=99;  
+    for(int i=0;i<16;i++){  
+        for(int j=0;j<16;j++){  
+            for(int k=0;k<16;k++){  
+                if(fo[j][k]>fo[j][i]+fo[i][k]){  
+//                    cout <<fo[0][4]<<" "<<fo[j][k]<<"="<<fo[j][i]<<"+"<<fo[i][k]<<endl;  
+                    fo[j][k]=fo[j][i]+fo[i][k];  
+                    fo[k][j]=fo[j][k];  
+                }  
+            }  
+        }  
+    }  
+//    for(int i=0;i<16;i++){  
+//        for(int q=0;q<16;q++){  
+//            cout << fo[i][q]<<' ';  
+//        }  
+//        cout << endl;  
+//    }  
+    int n,ans=0;  
+    scanf(" %d",&n);  
+    for(int d=0;d<n;d++){  
+        ans=0;  
+        vector<int> po;  
+        char as[1000]={};  
+        gets(as);  
+        if(strlen(as)<2){d--;continue;}  
+//        cout << as;  
+        for(int i=0;i<strlen(as);i++){  
+            if(as[i]>='a'&&as[i]<='z')  
+                po.push_back(as[i]-'a');  
+        }  
+        while(po.size()!=1&&po.size()){  
+            int now=*po.begin();  
+            int mi=1e9,mip;  
+//            for(int i=1;i<po.size();i++)  
+//                cout << po[i]<<" ";  
+//            cout << endl;  
+            for(int i=1;i<po.size();i++){  
+//                cout <<i<<":"<<po[i]<<" "<<fo[now][po[i]]<<" ";  
+                if(fo[now][po[i]]<mi){  
+                    mi=fo[now][po[i]];  
+                    mip=i;  
+                }  
+            }  
+//                cout << endl;  
+                ans+=mi;  
+                po[0]=po[mip];  
+                po.erase(po.begin()+mip);  
+        }  
+        cout << ans<<endl;  
+    }  
+}  
