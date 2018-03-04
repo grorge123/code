@@ -60,6 +60,5 @@ int main(){
             }
         }
         cont++;
-        return 0;
     }
 }
