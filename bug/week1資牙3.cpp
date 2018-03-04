@@ -7,31 +7,33 @@ int main(){
         int n,s[10005];
         cin >> n;
         stack<int> st;
-        vector<int> ve;
+        list<int> ve;
         for(int i=0;i<n;i++){
             cin >> s[i];
             ve.push_back(i+1);
         }
         int en=0,i=0;
         while(i<n){
-//            cout << "¥Ø¼Ğ"<<s[i]<<" ";
-//            for(int q=0;q<ve.size();q++)
-//                cout << ve[q]<<" ";
+//            cout << "ç›®æ¨™"<<s[i]<<" ";
+//            for(list<int>::iterator it=ve.begin();it!=ve.end();it++)
+//                cout << *it<<" ";
 //            cout << endl;
             int old=i;
-            for(int q=0;q<ve.size();q++){
-                if(ve[q]>s[i]){
+            for(list<int>::iterator it=ve.begin();it!=ve.end();it++){
+                if(*it>s[i]){
                     en=1;
                     break;
                 }
-                if(ve[q]<s[i]){
-                    st.push(ve[q]);
-                    ve.erase(ve.begin()+q);
-                    q=-1;
+                if(*it<s[i]){
+                    st.push(*it);
+                    ve.erase(it);
+                    it=ve.begin();
+                    it--;
+                    continue;
                 }
-                if(ve[q]==s[i]){
+                if(*it==s[i]){
                     i++;
-                    ve.erase(ve.begin()+q);
+                    ve.erase(it);
                     break;
                 }
             }
