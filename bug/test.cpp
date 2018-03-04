@@ -26,6 +26,7 @@ int main(){
         int seto=0;
         cout <<"Line #"<< cont+1<<endl;
         vector<teq>::iterator out;
+        int outnu=0;
         while(cin >>cmd ){
             if(cmd=="STOP")break;
             if(cmd=="ENQUEUE"){
@@ -33,8 +34,8 @@ int main(){
                 cin >> a;
 //                system("pause");
 //                cout << ran[s[a]]<<endl;
-                if(ran[s[a]]!=-1&&s[a]!=0){
-                        li[ran[s[a]]].qu.push(a);
+                if(ran[s[a]]-outnu!=-1&&s[a]!=0){
+                        li[ran[s[a]]-outnu].qu.push(a);
                         fi=1;
                 }
 //                system("pause");
@@ -56,7 +57,10 @@ int main(){
                 }
                 cout << out->qu.front()<<endl;
                 out->qu.pop();
-                if(out->qu.size()==0)out++;
+                if(out->qu.size()==0){
+                    li.erase(li.begin());
+                    outnu++;
+                }
             }
         }
         cont++;
