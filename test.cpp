@@ -13,7 +13,7 @@ void addt(tree **head,tree **ptr,int a){
     }else{
         if((*ptr)->data<a){
             if((*ptr)->l!=0){
-                addt(&head,(*ptr)->l,a);
+                addt(head,(*ptr)->l,a);
             }else{
                 tree *now = (tree *)malloc(sizeof(tree));
                 (*ptr)->l=now;
