@@ -4,28 +4,28 @@ struct tree {
     int data=0;
     tree *l,*r;
 };
-void addt(tree *head,tree *ptr,int a){
+void addt(tree **head,tree **ptr,int a){
     if(head==0){
         tree *now = (tree *)malloc(sizeof(tree));
-        head=now;
-        head->data=a;
-        cout << head->data<<endl;
+        *head=now;
+        (*head)->data=a;
+        cout << (*head)->data<<endl;
     }else{
-        if(ptr->data<a){
-            if(ptr->l!=0){
-                addt(head,ptr->l,a);
+        if((*ptr)->data<a){
+            if((*ptr)->l!=0){
+                addt(&head,(*ptr)->l,a);
             }else{
                 tree *now = (tree *)malloc(sizeof(tree));
-                ptr->l=now;
-                ptr->l->data=a;
+                (*ptr)->l=now;
+                (*ptr)->l->data=a;
             }
-        }else if(ptr->data>a){
-            if(ptr->l!=0){
-                addt(head,ptr->r,a);
+        }else if((*ptr)->data>a){
+            if((*ptr)->l!=0){
+                addt(head,(*ptr)->r,a);
             }else{
                 tree *now = (tree *)malloc(sizeof(tree));
-                ptr->r=now;
-                ptr->r->data=a;
+                (*ptr)->r=now;
+                (*ptr)->r->data=a;
             }
         }
     }
