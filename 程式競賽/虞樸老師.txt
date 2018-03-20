@@ -3,29 +3,29 @@ fishtoby
 
 
 
-§A¥i¯à·|¹J¨ìªº¤ñÁÉ(ÂÂª©):
+ä½ å¯èƒ½æœƒé‡åˆ°çš„æ¯”è³½(èˆŠç‰ˆ):
 
-2017 9¤ë ®Õ¤ºªìÁÉ / ½ÆÁÉ
+2017 9æœˆ æ ¡å…§åˆè³½ / è¤‡è³½
 
-2017 11¤ë ¥_¥«ÁÉ
+2017 11æœˆ åŒ—å¸‚è³½
 
-³oªşªñ»ª¦ü¦³­Ó¥s³n¤ñªº©U§£¤ñÁÉ¡A¥Ø«e¸Õ¿ìªº³ÌÄêªº¤ñÁÉ
+é€™é™„è¿‘è²Œä¼¼æœ‰å€‹å«è»Ÿæ¯”çš„åƒåœ¾æ¯”è³½ï¼Œç›®å‰è©¦è¾¦çš„æœ€çˆ›çš„æ¯”è³½
 
-2017 12¤ë ¥ş°êÁÉ$
+2017 12æœˆ å…¨åœ‹è³½$
 
-2017 11/12¤ë NPSCªìÁÉ/¨MÁÉ
+2017 11/12æœˆ NPSCåˆè³½/æ±ºè³½
 
-2018 3¤ë TOIªì¿ï
+2018 3æœˆ TOIåˆé¸
 
-2018 3¤ë TOI 1!
+2018 3æœˆ TOI 1!
 
-2018 4¤ë TOI 2!
+2018 4æœˆ TOI 2!
 
-2018 5¤ë APIO
+2018 5æœˆ APIO
 
-2018 7¤ë©³ IOI
+2018 7æœˆåº• IOI
 
-¦UºØ GOOGLE CODE JAM ¡B FACEBOOK HACKERCUP ¡B CODEFORCES ¡B HACKERRANK ¡B ATCODER ¡B RUSSIACUP ...
+å„ç¨® GOOGLE CODE JAM ã€ FACEBOOK HACKERCUP ã€ CODEFORCES ã€ HACKERRANK ã€ ATCODER ã€ RUSSIACUP ...
 
 --
 
@@ -46,9 +46,12 @@ ATCODER
 
 PEG
 
-(°ò¥»)­n·|ªºªF¦è
+(åŸºæœ¬)è¦æœƒçš„æ±è¥¿
+æ•¸å­¸å•é¡Œ:{
+	
+}
 STL:{
-	vector ( the easy way to discrete numbers )Â÷´²¼Æ¾Ç
+	vector ( the easy way to discrete numbers )é›¢æ•£æ•¸å­¸
 	queue
 	stack
 	deque
@@ -62,21 +65,21 @@ STL:{
 	tuple
 }
 BFS:{
-	simple graph bfs ¹Ï§Îbfs
+	simple graph bfs åœ–å½¢bfs
 	dijkstra (floyd first is ok)
 	spfa (bellman - ford first is ok)
-	other status (¤@°ïªo²~ ¡B ¦ì¤¸ .. )
+	other status (ä¸€å †æ²¹ç“¶ ã€ ä½å…ƒ .. )
 }
 DFS:{
 	just dfs @@
 }
 DP: {
-	knapsack problem­I¥]°İÃD{
+	knapsack problemèƒŒåŒ…å•é¡Œ{
 		simple 1-1
 		infinity knapsack
 		multi knapsack{
 			monotonous O(w)
-			binary split O(wdlogn) // d = ¿ú¹ôºØÃş¼Æ
+			binary split O(wdlogn) // d = éŒ¢å¹£ç¨®é¡æ•¸
 		}
 	}
 	plug dp
@@ -101,43 +104,43 @@ string : {
 	suffix tree
 	Monarch
 	aho-corasick
-	¦r¨å¾ğ
+	å­—å…¸æ¨¹
 }
 graph : {
-	disjoint set ( djs with value, djs that can redo .. )¨Ã¬d¤Î
+	disjoint set ( djs with value, djs that can redo .. )ä¸¦æŸ¥åŠ
 	Articulate vertex (tarjan)
 	bridge(cut - edge) (tarjan)
 	2-sat
 	bcc (tarjan)
 	scc (kosaraju or tarjan)
-	¦I¤ú§Qºâªk
-	kmºâªk
+	åŒˆç‰™åˆ©ç®—æ³•
+	kmç®—æ³•
 	euler-path (circle)
 	hamilton path (circle)
 	O(N^2) hamilton path (circle) on a dense graph
-	Âù³s³q¤À¶q
-	¥Y¥]
-	±j³s³q¤À¶q
-	³Ì¤j¹Î
-	¥­­±¹Ï©Ê½è
-	kµu¸ô(¥ÑSPFA·f°tDijkstra¨D±o)
+	é›™é€£é€šåˆ†é‡
+	å‡¸åŒ…
+	å¼·é€£é€šåˆ†é‡
+	æœ€å¤§åœ˜
+	å¹³é¢åœ–æ€§è³ª
+	kçŸ­è·¯(ç”±SPFAæ­é…Dijkstraæ±‚å¾—)
 }
-Âø¶µ : {
-	¾ãÅé¤G¤À
-	¤j¼Æ¹Bºâ
-	¾Ş§@¤Àªv
-	¼ÒÀÀ°h¤õ
+é›œé … : {
+	æ•´é«”äºŒåˆ†
+	å¤§æ•¸é‹ç®—
+	æ“ä½œåˆ†æ²»
+	æ¨¡æ“¬é€€ç«
 	PBDS_SD(ROPE,PQ,TREE..)
-	½ü¹ø½u
-	XdYdÀu¤Æ
+	è¼ªå»“ç·š
+	XdYdå„ªåŒ–
 }
 geometry : {
 	convex hull
 	screw caliper
 	some basic intersect problem
 }
-data-structure ¸ê®Æµ²ºc{
-	segment tree ½u¬q¾ğ
+data-structure è³‡æ–™çµæ§‹{
+	segment tree ç·šæ®µæ¨¹
 	fenwick-tree(BIT)
 	2d segment tree
 	treap (basically suggest merge split treap)
@@ -173,18 +176,18 @@ pbds(Policy based data structures????){
 
 Atcoder : 20
 Hackerrank : 6
-HOJ : ??(¨t²ÎÃa¤F)
+HOJ : ??(ç³»çµ±å£äº†)
 TIOJ : 102
-SPOJ : «Ü¤Ö
+SPOJ : å¾ˆå°‘
 BZOJ : 24
-TSINSEN : «Ü¤Ö
+TSINSEN : å¾ˆå°‘
 POI : 31
-ZJ : 605+107(¤À¨­)
-NPSCÃD : (ZEROJUDGE¤W)³QÃö±¼¤F ²q´ú80ªşªñ
+ZJ : 605+107(åˆ†èº«)
+NPSCé¡Œ : (ZEROJUDGEä¸Š)è¢«é—œæ‰äº† çŒœæ¸¬80é™„è¿‘
 TOJ : 31
 UVA : 158
-CF : ¤À¨­¦n´X­Ó«ÜÃø²Î­p ¦Ü¤Ö600UP
+CF : åˆ†èº«å¥½å¹¾å€‹å¾ˆé›£çµ±è¨ˆ è‡³å°‘600UP
 POJ : 37 
-¦UºØ¤ñÁÉ¹J¨ì«á¦^¥h¨S¼gªºÃD¥Ø (¤£¥]¬A¤W­±ªºNPSC) : ¬ù 106 ÃD 
--- Á`­p¬ù 1900 ~ 2100ÃD¤§¶¡ --
--- ²Ê²¤²Î­p¤]¼g¤F§Ö200000¦æ--
+å„ç¨®æ¯”è³½é‡åˆ°å¾Œå›å»æ²’å¯«çš„é¡Œç›® (ä¸åŒ…æ‹¬ä¸Šé¢çš„NPSC) : ç´„ 106 é¡Œ 
+-- ç¸½è¨ˆç´„ 1900 ~ 2100é¡Œä¹‹é–“ --
+-- ç²—ç•¥çµ±è¨ˆä¹Ÿå¯«äº†å¿«200000è¡Œ--
