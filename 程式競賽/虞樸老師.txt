@@ -48,6 +48,8 @@ PEG
 
 (基本)要會的東西
 數學問題:{
+	the tower of hanoi
+	nim problem
 	
 }
 STL:{
