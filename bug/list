@@ -6,7 +6,7 @@ struct lis{
     int data=0;
     lis *nex=NULL;
 };
-lis *head[1005];
+lis *head[105];
 bool add(int a,int b,lis **ptr){
     if(*ptr==NULL){
         lis *now=(lis *)malloc(sizeof(lis));
