@@ -1,0 +1,88 @@
+#include<cstdio>
+#include<bits/stdc++.h>
+using namespace std;
+#define F first
+#define S second
+bool build=false;
+bool check(int deep,vector<pair<int,int> > vec,int row[][10],int col[][10],char s[][10],int key){
+//    cout <<"key:"<<key<<endl;
+    for(int i=0;i<9;i++){
+        if(s[vec[deep].F][i]-'0'==key)
+            return true;
+    }
+    for(int i=0;i<9;i++){
+        if(s[i][vec[deep].S]-'0'==key)
+            return true;
+    }
+    for(int i=vec[deep].F/3*3;i<vec[deep].F/3*3+3;i++){
+        for(int q=vec[deep].S/3*3;q<vec[deep].S/3*3+3;q++){
+//            cout <<vec[deep].F<<" "<<vec[deep].S<<" "<< vec[deep].F/3*3<<" "<<vec[deep].S/3*3<<" "<<i<<" "<<q<<" "<<s[i][q]<<endl;
+            if(s[i][q]-'0'==key)
+                return true;
+        }
+    }
+    return false;
+}
+void fin(int deep,vector<pair<int,int> > vec,int row[][10],int col[][10],char s[][10]){
+//    cout << deep<<endl;
+    for(int i=1;i<=9;i++){
+        if(!check(deep,vec,row,col,s,i)){
+            s[vec[deep].F][vec[deep].S]=i+'0';
+            if(deep==vec.size()-1){
+                build=true;
+                return;
+            }else{
+                fin(deep+1,vec,row,col,s);
+            }
+            if(build){
+                return;
+            }
+            s[vec[deep].F][vec[deep].S]='.';
+        }
+    }
+}
+int main(){
+    while(true){
+        build= false;
+        char s[10][10]={};
+        int row[10][10]={},col[10][10]={};
+        vector<pair<int,int> > vec;
+        for(int i=0;i<9;i++){
+            for(int q=0;q<9;q++){
+                cin >> s[i][q];
+                if(s[i][q]=='e'){
+                    return 0;
+                }
+            }
+        }
+        for(int i=0;i<9;i++){
+            for(int q=0;q<9;q++){
+                if(s[i][q]=='.'){
+                    vec.push_back(pair<int,int>(i,q));
+                }
+//                else{
+//                    row[i][s[i][q]-'0']=1;
+//                    col[i][s[q][i]-'0']=1;
+//                }
+            }
+        }
+        fin(0,vec,row,col,s);
+        for(int i=0;i<9;i++){
+            for(int q=0;q<9;q++){
+                if(s[i][q]=='.')
+                    build=false;
+            }
+        }
+        if(!build){
+            cout << "No solution."<<endl;
+            continue;
+        }
+        for(int i=0;i<9;i++){
+            for(int q=0;q<9;q++){
+                printf("%c",s[i][q]);
+            }
+//            cout << endl;
+        }
+        printf("\n");
+    }
+}
