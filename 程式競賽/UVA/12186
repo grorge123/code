@@ -1,0 +1,37 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct tree{
+    int data=0;
+    vector<int> ve;
+};
+int dfs(tree s[],int deep,int n,int t){
+    if(s[deep].ve.size()==0)return 1;
+    vector<int> all;
+    for(int i=0;i<s[deep].ve.size();i++){
+        if(s[s[deep].ve[i]].data==0){
+            all.push_back(dfs(s,s[deep].ve[i],n,t));
+        }
+    }
+    sort(all.begin(),all.end());
+    int k=ceil((double)s[deep].ve.size()*t/100);
+    int renum=0;
+    for(int i=0;i<k;i++){
+        renum+=all[i];
+    }
+    s[deep].data=renum;
+    return s[deep].data;
+}
+int main(){
+    int n,t;
+    while(cin >>n>> t){
+        if(n==0&&t==0)break;
+        tree s[100005]={};
+        for(int i=1;i<=n;i++){
+            int a;
+            cin >> a;
+            s[a].ve.push_back(i);
+        }
+        cout << dfs(s,0,n,t)<<endl;
+    }
+    return 0;
+}
