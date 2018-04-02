@@ -64,16 +64,22 @@ int main(){
 //            cout << col[i].size()<<" ";
 //        cout << endl;
     }
+    int q=0;
     for(int i=r;i<n;i++){
-        for(int q=0;q<m;q++){
-            if(rown[q]==0)
-                printf("row %d r\n",q);
+        for(;q<m;q++){
+            if(rown[q]==0){
+                printf("row %d r\n",q+1);
+                rown[q]=1;
+            }
         }
     }
+    q=0;
     for(int i=c;i<m;i++){
-        for(int q=0;q<n;q++){
-            if(coln[q]==0)
-                printf("column %d r\n",q);
+        for(;q<n;q++){
+            if(coln[q]==0){
+                printf("column %d r\n",q+1);
+                coln[q]=1;
+            }
         }
     }
     while(!st.empty()){
