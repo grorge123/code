@@ -5,9 +5,11 @@ using namespace std;
 #define F first
 #define S second
 char s[1505][1505]={};
+int rown[1505]={},coln[1505]={};
 bool check(int *ty,int *num,char *word,set<char> row[],set<char> col[],int n,int m){
     for(int i=0;i<n;i++){
         if(row[i].size()==1){
+            rown[i]=1;
             *num=i;
             *word=*row[i].begin();
             *ty=1;
@@ -16,6 +18,7 @@ bool check(int *ty,int *num,char *word,set<char> row[],set<char> col[],int n,int
     }
     for(int i=0;i<m;i++){
         if(col[i].size()==1){
+            coln[i]=1;
             *num=i;
             *word=*col[i].begin();
             *ty=2;
@@ -38,17 +41,19 @@ int main(){
             col[q].insert(s[i][q]);
         }
     }
-    int num,ty=1;
+    int num,ty=1,r=0,c=0;
     char word;
     while(check(&ty,&num,&word,row,col,n,m)){
         if(ty==1){
             row[num].erase(word);
             st.push(pair<string,pair<int,char> > ("row",pair<int,char>(num,word)));
+            r++;
             for(int i=0;i<m;i++)
                 if(col[i].size()!=1)col[i].erase(word);
         }else{
             col[num].erase(word);
             st.push(pair<string,pair<int,char> >("column",pair<int,char>(num,word)));
+            c++;
             for(int i=0;i<n;i++)
                 if(col[i].size()!=1)row[i].erase(word);
         }
@@ -59,8 +64,17 @@ int main(){
 //            cout << col[i].size()<<" ";
 //        cout << endl;
     }
-    for(int i=st.size();i<m+n;i++){
-        printf("row 2 r\n");
+    for(int i=r;i<n;i++){
+        for(int q=0;q<m;q++){
+            if(rown[q]==0)
+                printf("row %d r\n",q);
+        }
+    }
+    for(int i=c;i<m;i++){
+        for(int q=0;q<n;q++){
+            if(coln[q]==0)
+                printf("column %d r\n",q);
+        }
     }
     while(!st.empty()){
         if(st.top().F=="row")
