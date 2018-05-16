@@ -1,43 +1,68 @@
-//https://docs.google.com/viewerng/viewer?url=https://neoj.sprout.tw/api/problem/143/static/cont.pdf
+#include<cstdio>
 #include<bits/stdc++.h>
 using namespace std;
-int dfs(int s[],int l,int r,int *cost){
-    if(l==r)return s[l];
-    if(l+1==r){
-        *cost+=s[l]+s[r];
-        return s[l]+s[r];
-    }
-    int Min=1e9;
-    for(int i=l+1;i<=r;i++){
-        int oldcost=*cost;
-        int a=dfs(s,l,i-1,cost)+dfs(s,i,r,cost);
-//        Min=min(Min,a);
-        *cost+=a;
-        if(Min>a){
-            Min=a;
-        }else{
-            *cost=oldcost;
-        }
-    }
-    return Min;
-}
 int main(){
-    int t;
-    cin >> t;
-    while(t--){
-        int n,s[105]={};
-        cin >> n;
-        for(int i=0;i<n;i++){
-            cin >> s[i];
+    int n,m,sq;
+    scanf("%d %d",&n,&m);
+    deque<int> de[10000];
+    sq=sqrt(n);
+    for(int i=0;i<n;i++){
+        int a;
+        scanf("%d",&a);
+        de[i/sq].push_back(a);
+    }
+    for(int i=0;i<m;i++){
+        string a;
+        int c;
+        cin >> a>>c;
+        c--;
+        if(a=="ADD"){
+            int d;
+            cin >> d;
+            de[c/sq].insert(de[c/sq].begin()+c%sq,d);
+            for(int q=c/sq;de[q].size()!=0;q++){
+                if(de[q].size()>sq){
+                    de[q+1].push_front(de[q].back());
+                    de[q].pop_back();
+                }
+            }
+        }else if(a=="QUERY"){
+            printf("%d\n",de[c/sq][c%sq]);
+        }else if(a=="LEAVE"){
+            de[c/sq].erase(de[c/sq].begin()+c%sq);
+            for(int q=c/sq;de[q].size()!=0;q++){
+                if(de[q].size()<sq&&de[q+1].size()!=0){
+                    de[q].push_back(de[q+1].front());
+                    de[q+1].pop_front();
+                }
+            }
         }
-        int ans=1e9,cost=0;
-        for(int i=1;i<n;i++){
-           cost=0;
-           cost+=dfs(s,0,i-1,&cost)+dfs(s,i,n-1,&cost);
-           cout << cost<<endl;
-           ans=min(cost,ans);
-        }
-        cout << ans<<endl;
-
     }
 }
+//相信大家都知道中國人排隊有些人神奇的潛規則，導致你可能發現一個比你晚到的人排在比你前面，這根本就叫做中國人插隊嘛！
+//
+//今天你又遇到了一群「排隊」中的中國人，為了研究他們排隊的情況，你將所有插隊或是離開隊伍的情況全部紀錄了下來，回家後想要寫支程式模擬整個排隊的過程。
+//
+//輸入說明
+//第一行為兩個數字N,M，表示一開始有N個人在排隊，而接下來依序有M個事件。
+//接著M行，每行為以下三種事件其中之一：
+//
+//ADD i x：編號為 x 的人插隊進了第 i 個位子，原本在第 i 個位子(包含 i )之後的人全部往後順移一位。保證 1≤i≤(當前隊伍人數+1)
+//LEAVE i：第 i 個位子的人不知道為什麼離開了，在他之後的人全部往前順移一位。保證 1≤i≤(當前隊伍人數)
+//QUERY i：詢問第 i 個位子的人的編號。保證 1≤i≤(當前隊伍人數)
+//
+//最前面的位子編號為1。
+//1≤N,M≤100000 
+//0≤x≤2147483647 
+//輸出說明
+//對於每個詢問(QUERY i)，輸出該位子的編號，每筆詢問答案之後請換行。
+//測資
+//1 100
+//1
+//ADD 1 3
+//ADD 1 2
+//QUERY 1
+//QUERY 2
+//QUERY 3
+//LEAVE 1
+//QUERY 1
