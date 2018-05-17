@@ -1,78 +1,40 @@
 #include<bits/stdc++.h>
+#define IOS ios::sync_with_stdio();cin.tie(0);
 using namespace std;
 int main(){
-    int x,y,m,n;
-    char s[1005][1005]={};
-    cin >> n>>m;
+    IOS
+    int n,m,q,s[1000]={},all[10005]={};
+    vector<int> ve[10005];
+    cin >> n>>m>>q;
     for(int i=1;i<=n;i++){
-        for(int q=1;q<=m;q++){
-            cin >> s[i][q];
+        cin >> s[i];
+    }
+    for(int i=1;i<=m;i++){
+        int k;
+        cin >> k;
+        for(int q=0;q<k;q++){
+            int a;
+            cin >> a;
+            ve[i].push_back(a);
+            all[i]+=s[a];
         }
     }
-    int d[8][2]={{0,1},{1,0},{-1,0},{0,-1},{1,-1},{-1,1},{-1,-1},{1,1}};
-    for(int i=2;i<=n;i++){
-        for(int q=2;q<=m;q++){
-            int fi=0;
-            for(int k=0;k<8;k++){
-                if(s[i+d[k][0]][q+d[k][1]]!='1'||s[i][q]!='1'){
-                    break;
-                }
-                if(k==7){
-                    x=i,y=q;
-                    goto e;
-                }
+    for(int i=0;i<q;i++){
+        string a;
+        int b;
+        cin >> a>> b;
+        if(a=="QUERY"){
+            all[b]=0;
+            for(int i=0;i<ve[b].size();i++){
+                all[b]+=s[ve[b][i]];
+            }
+            cout << all[b]<<endl;
+        }else if(a=="ADD"){
+            int c;
+            cin >> c;
+            for(int i=0;i<ve[b].size();i++){
+                s[ve[b][i]]+=c;
             }
         }
     }
-    e:;
-//    cout << x<<" "<<y<<endl;
-    int ans=0,co=1;
-    while(s[x-co][y]=='1'){
-        ans++;
-        co++;
-    }
-    cout << ans<<endl;
-    ans=0,co=1;
-    while(s[x-co][y+co]=='1'){
-        ans++;
-        co++;
-    }
-    cout << ans<<endl;
-    ans=0,co=1;
-    while(s[x][y+co]=='1'){
-        ans++;
-        co++;
-    }
-    cout << ans<<endl;
-    ans=0,co=1;
-    while(s[x+co][y+co]=='1'){
-        ans++;
-        co++;
-    }
-    cout << ans<<endl;
-    ans=0,co=1;
-    while(s[x+co][y]=='1'){
-        ans++;
-        co++;
-    }
-    cout << ans<<endl;
-    ans=0,co=1;
-    while(s[x-co][y+co]=='1'){
-        ans++;
-        co++;
-    }
-    cout << ans<<endl;
-    ans=0,co=1;
-    while(s[x][y-co]=='1'){
-        ans++;
-        co++;
-    }
-    cout << ans<<endl;
-    ans=0,co=1;
-    while(s[x-co][y-co]=='1'){
-        ans++;
-        co++;
-    }
-    cout << ans<<endl;
-    ans=0,co=1;
 }
