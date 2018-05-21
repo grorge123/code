@@ -56,7 +56,7 @@ int main(){
         }
     }
     sort(node.begin(),node.end(),cmp);
-    std::vector<pair<int,int> >::iterator it;
+    std::vector<pair<int,int> >::iterator it;//將重複的點刪除
     it = std::unique (node.begin(), node.end());
     node.resize( std::distance(node.begin(),it) );
     it=node.begin();
@@ -66,7 +66,7 @@ int main(){
         for(int q=0;q<ve[i].size();q++){
             adj[ve[i][q]]=i;
         }
-        for(;it!=node.end()&&it->F<=i;it++){
+        for(;it!=node.end()&&it->F<=i;it++){//這個for迴圈註解後就不會tle了
             if(adj[it->S]==i){
                 ans++;
             }
