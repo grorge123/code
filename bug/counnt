@@ -29,7 +29,7 @@ int main(){
     int ans=0;
     vector<pair<int,int> > node;
     for(int i=0;i<n;i++){
-        if(ve[i].size()>=sq){
+        if(ve[i].size()>=sq){//窮舉所有邊
 //            cout <<"i:"<< i<<endl;
             bool adj[100005]={};
             for(int q=0;q<ve[i].size();q++){
@@ -42,7 +42,7 @@ int main(){
                 }
             }
 //            cout <<"ans:"<<ans<<endl;
-        }else{
+        }else{//窮舉所有v的邊
 //            cout << i<<endl;
             int all=0;
 //            pair<int,int> node[100005];
