@@ -1,0 +1,76 @@
+#include<cstdio>
+#include<bits/stdc++.h>
+using namespace std;
+#define F first
+#define S second
+#define pb push_back
+bool cmp(pair<int,int> a,pair<int,int> b){
+    if(a.F!=b.F){
+        return a.F<b.F;
+    }else{
+        return a.S<b.S;
+    }
+}
+vector<int> ve[100005];
+pair<int,int> pa[100005];
+int main(){
+    int n,m,sq;
+    scanf("%d %d",&n,&m);
+    sq=sqrt(n);
+//    cout << sq<<endl;
+    for(int i=0;i<m;i++){
+        int a,b;
+        scanf("%d %d",&a,&b);
+        ve[a].pb(b);
+        ve[b].pb(a);
+        pa[i]=pair<int,int>(a,b);
+    }
+//    sort(pa,pa+m,cmp);
+    int ans=0;
+    vector<pair<int,int> > node;
+    for(int i=0;i<n;i++){
+        if(ve[i].size()>=sq){
+//            cout <<"i:"<< i<<endl;
+            bool adj[100005]={};
+            for(int q=0;q<ve[i].size();q++){
+//                cout << q<<endl;
+                adj[ve[i][q]]=true;
+            }
+            for(int i=0;i<m;i++){
+                if(adj[pa[i].F]==true&&adj[pa[i].S]==true){
+                    ans++;
+                }
+            }
+//            cout <<"ans:"<<ans<<endl;
+        }else{
+//            cout << i<<endl;
+            int all=0;
+//            pair<int,int> node[100005];
+            for(int q=0;q<ve[i].size();q++){
+                for(int k=q+1;k<ve[i].size();k++){
+                    node.pb(pair<int,int>(ve[i][q],ve[i][k]));
+                    all++;
+                }
+            }
+
+        }
+    }
+    sort(node.begin(),node.end(),cmp);
+    std::vector<pair<int,int> >::iterator it;
+    it = std::unique (node.begin(), node.end());
+    node.resize( std::distance(node.begin(),it) );
+    it=node.begin();
+    int adj[100005]={};
+    for(int i=0;i<n;i++){
+        if(i<it->F)continue;
+        for(int q=0;q<ve[i].size();q++){
+            adj[ve[i][q]]=i;
+        }
+        for(;it!=node.end()&&it->F<=i;it++){
+            if(adj[it->S]==i){
+                ans++;
+            }
+        }
+    }
+    printf("%d\n",ans/3);
+}
