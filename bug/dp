@@ -1,95 +1,65 @@
-#include<cstdio>
 #include<bits/stdc++.h>
 using namespace std;
-#define F first
-#define S second
-#define pb push_back
-bool cmp(pair<int,int> a,pair<int,int> b){
-    if(a.F!=b.F){
-        return a.F<b.F;
-    }else{
-        return a.S<b.S;
-    }
-}
-vector<int> ve[100005];
-pair<int,int> pa[100005];
+set<long long int> ve[105][1005];
 int main(){
-    int n,m,sq;
-    scanf("%d %d",&n,&m);
-    sq=sqrt(n);
-//    cout << sq<<endl;
-    for(int i=0;i<m;i++){
-        int a,b;
-        scanf("%d %d",&a,&b);
-        ve[a].pb(b);
-        ve[b].pb(a);
-        pa[i]=pair<int,int>(a,b);
-    }
-    for(int i=0;i<n;i++){
-        sort(ve[i].begin(),ve[i].end());
-    }
-//    sort(pa,pa+m,cmp);
-    int ans=0;
-    int adj[100005]={};
-    vector<pair<int,int> > node;
-    for(int i=0;i<n;i++){
-        if(!ve[i].size()>=sq){//窮舉所有邊
-//            cout <<"i:"<< i<<endl;
-            for(int q=0;q<ve[i].size();q++){
-//                cout << q<<endl;
-                adj[ve[i][q]]=i+1;
-            }
-            for(int q=0;q<m;q++){
-//                cout << adj[pa[q].F]<<" "<<adj[pa[q].S]<<" "<<i+1<<endl;
-                if(adj[pa[q].F]==i+1&&adj[pa[q].S]==i+1){
-                    ans++;
+    int t;
+    cin >> t;
+    while(t--){
+        long long int n,m,k,s[105][1005]={},a[105]={},w[105]={};
+        cin >> n>>m>>k;
+        for(int i=0;i<105;i++)for(int q=0;q<1005;q++)ve[i][q].clear();
+        for(int i=1;i<=n;i++){
+            cin >> w[i]>>a[i];
+        }
+        for(int i=1;i<=n;i++){
+            for(int q=0;q<=m;q++){
+                if(q-w[i]<0){
+                    s[i][q]=s[i-1][q];
+                    ve[i][q].clear();
+                    for(set<long long int>::iterator it2=ve[i-1][q].begin();it2!=ve[i-1][q].end();it2++)ve[i][q].insert(*it2);
+                    continue;
                 }
-            }
-//            cout <<"ans:"<<ans<<endl;
-        }else{//窮舉所有v的邊
-//            cout << i<<endl;
-            int all=0;
-//            pair<int,int> node[100005];
-            for(int q=0;q<ve[i].size();q++){
-                for(int k=q+1;k<ve[i].size();k++){
-                    node.pb(pair<int,int>(ve[i][q],ve[i][k]));
-                    all++;
-                }
-            }
-            for(int q=0;q<node.size();q++){
-                int l=0,r=ve[node[q].F].size()-1;
-                while(l<=r){
-                    int m=(l+r)/2;
-                    if(ve[node[q].F][m]>node[q].S){
-                        r=m-1;
-                    }else if(ve[node[q].F][m]<node[q].S){
-                        l=m+1;
+                if(k>ve[i-1][q-w[i]].size()){
+                    if(s[i-1][q]>s[i-1][q-w[i]]+a[i]){
+                        s[i][q]=s[i-1][q];
+                        ve[i][q].clear();
+                        for(set<long long int>::iterator it2=ve[i-1][q].begin();it2!=ve[i-1][q].end();it2++)ve[i][q].insert(*it2);
                     }else{
-                        ans++;
-//                        cout <<node[i].F<<" "<<node[i].S<<endl;
-                        break;
+                        s[i][q]=s[i-1][q-w[i]]+a[i];
+                        ve[i][q].clear();
+                        for(set<long long int>::iterator it2=ve[i-1][q-w[i]].begin();it2!=ve[i-1][q-w[i]].end();it2++)ve[i][q].insert(*it2);
+                        ve[i][q].insert(i);
+                    }
+                }else{
+                    for(set<long long int>::iterator it=ve[i-1][q-w[i]].begin();it!=ve[i-1][q-w[i]].end();it++){
+                        if(s[i][q]>=s[i-1][q]&&s[i][q]>=s[i-1][q-w[i]]+a[i]-a[*it])continue;
+                        if(s[i-1][q]>s[i-1][q-w[i]]+a[i]-a[*it]){
+                            s[i][q]=s[i-1][q];
+                            ve[i][q].clear();
+                            for(set<long long int>::iterator it2=ve[i-1][q].begin();it2!=ve[i-1][q].end();it2++)ve[i][q].insert(*it2);
+                        }else{
+                            s[i][q]=s[i-1][q-w[i]]+a[i]-a[*it];
+                            ve[i][q].clear();
+                            for(set<long long int>::iterator it2=ve[i-1][q-w[i]].begin();it2!=ve[i-1][q-w[i]].end();it2++)ve[i][q].insert(*it2);
+                            ve[i][q].erase(ve[i][q].find(*it));
+                            ve[i][q].insert(i);
+                        }
                     }
                 }
             }
-            node.clear();
         }
-    }
-//    sort(node.begin(),node.end(),cmp);
-//    std::vector<pair<int,int> >::iterator it;//將重複的點刪除
-//    it = std::unique (node.begin(), node.end());
-//    node.resize( std::distance(node.begin(),it) );
-//    it=node.begin();
-//    int adj[100005]={};
-//    for(int i=0;i<n;i++){
-//        if(i<it->F)continue;
-//        for(int q=0;q<ve[i].size();q++){
-//            adj[ve[i][q]]=i;
-//        }
-//        for(;it!=node.end()&&it->F<=i;it++){//這個for迴圈註解後就不會tle了
-//            if(adj[it->S]==i){
-//                ans++;
+//        for(int i=1;i<=n;i++){
+//            for(int q=0;q<=m;q++){
+//                cout << ve[i][q].size()<<" ";
 //            }
+//            cout << endl;
 //        }
-//    }
-    printf("%d\n",ans/3);
+//        for(int i=1;i<=n;i++){
+//            for(int q=0;q<=m;q++){
+//                cout << s[i][q]<<" ";
+//            }
+//            cout << endl;
+//        }
+        cout << s[n][m]<<endl;
+    }
 }
