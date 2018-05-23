@@ -1,65 +1,52 @@
 #include<bits/stdc++.h>
 using namespace std;
-set<long long int> ve[105][1005];
+long long int s[105][1005],s2[105][1005];
+struct th{
+    long long int a=0,w=0;
+};
+bool cmp(th a,th b){
+    return a.w<b.w;
+}
 int main(){
     int t;
     cin >> t;
     while(t--){
-        long long int n,m,k,s[105][1005]={},a[105]={},w[105]={};
+        int n,m,k;
         cin >> n>>m>>k;
-        for(int i=0;i<105;i++)for(int q=0;q<1005;q++)ve[i][q].clear();
+        th a[105];
         for(int i=1;i<=n;i++){
-            cin >> w[i]>>a[i];
+            cin >> a[i].w>>a[i].a;
         }
-        for(int i=1;i<=n;i++){
-            for(int q=0;q<=m;q++){
-                if(q-w[i]<0){
-                    s[i][q]=s[i-1][q];
-                    ve[i][q].clear();
-                    for(set<long long int>::iterator it2=ve[i-1][q].begin();it2!=ve[i-1][q].end();it2++)ve[i][q].insert(*it2);
-                    continue;
-                }
-                if(k>ve[i-1][q-w[i]].size()){
-                    if(s[i-1][q]>s[i-1][q-w[i]]+a[i]){
-                        s[i][q]=s[i-1][q];
-                        ve[i][q].clear();
-                        for(set<long long int>::iterator it2=ve[i-1][q].begin();it2!=ve[i-1][q].end();it2++)ve[i][q].insert(*it2);
-                    }else{
-                        s[i][q]=s[i-1][q-w[i]]+a[i];
-                        ve[i][q].clear();
-                        for(set<long long int>::iterator it2=ve[i-1][q-w[i]].begin();it2!=ve[i-1][q-w[i]].end();it2++)ve[i][q].insert(*it2);
-                        ve[i][q].insert(i);
-                    }
-                }else{
-                    for(set<long long int>::iterator it=ve[i-1][q-w[i]].begin();it!=ve[i-1][q-w[i]].end();it++){
-                        if(s[i][q]>=s[i-1][q]&&s[i][q]>=s[i-1][q-w[i]]+a[i]-a[*it])continue;
-                        if(s[i-1][q]>s[i-1][q-w[i]]+a[i]-a[*it]){
-                            s[i][q]=s[i-1][q];
-                            ve[i][q].clear();
-                            for(set<long long int>::iterator it2=ve[i-1][q].begin();it2!=ve[i-1][q].end();it2++)ve[i][q].insert(*it2);
-                        }else{
-                            s[i][q]=s[i-1][q-w[i]]+a[i]-a[*it];
-                            ve[i][q].clear();
-                            for(set<long long int>::iterator it2=ve[i-1][q-w[i]].begin();it2!=ve[i-1][q-w[i]].end();it2++)ve[i][q].insert(*it2);
-                            ve[i][q].erase(ve[i][q].find(*it));
-                            ve[i][q].insert(i);
+        set<int> se[1005];
+        sort(a,a+n,cmp);
+        memset(s,0,sizeof(s));
+        memset(s2,0,sizeof(s2));
+        for(int q=1;q<=k;q++){
+            int push[1005]={};
+            for(int j=m;j>=0;j--){
+                for(int i=1;i<=n;i++){
+                    if(j-a[i].w>=0){
+                        if(s2[q-1][j-a[i].w]+a[i].a>s[q][j]&&se[j-a[i].w].find(i)==se[j-a[i].w].end()){
+                            s[q][j]=s2[q-1][j-a[i].w]+a[i].a;
+//                            cout <<s2[q-1][j-a[i].w]<<" "<<a[i].a<<" "<< s[q][j]<<endl;
+                            push[j]=i;
                         }
                     }
+                    s[q][j]=max(s[q][j],s2[q-1][j]);
                 }
+
+            }
+            for(int j=1;j<=m;j++){
+                s2[q][j]=s[q][j];
+                se[j].insert(push[j]);
+            }
+            for(int ss=1;ss<=k;ss++){
+                for(int sq=1;sq<=m;sq++){
+                    cout << s[ss][sq]<<" ";
+                }
+                cout << endl;
             }
         }
-//        for(int i=1;i<=n;i++){
-//            for(int q=0;q<=m;q++){
-//                cout << ve[i][q].size()<<" ";
-//            }
-//            cout << endl;
-//        }
-//        for(int i=1;i<=n;i++){
-//            for(int q=0;q<=m;q++){
-//                cout << s[i][q]<<" ";
-//            }
-//            cout << endl;
-//        }
-        cout << s[n][m]<<endl;
+        cout << s[k][m]<<endl;
     }
 }
