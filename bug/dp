@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-long long int s[105][1005],s2[105][1005];
+long long int s[105][1005];
 struct th{
     long long int a=0,w=0;
 };
@@ -17,35 +17,34 @@ int main(){
         for(int i=1;i<=n;i++){
             cin >> a[i].w>>a[i].a;
         }
-        set<int> se[1005];
+        bool se[1005][105]={};
         sort(a,a+n,cmp);
         memset(s,0,sizeof(s));
-        memset(s2,0,sizeof(s2));
+//        memset(s2,0,sizeof(s2));
         for(int q=1;q<=k;q++){
             int push[1005]={};
             for(int j=m;j>=0;j--){
                 for(int i=1;i<=n;i++){
                     if(j-a[i].w>=0){
-                        if(s2[q-1][j-a[i].w]+a[i].a>s[q][j]&&se[j-a[i].w].find(i)==se[j-a[i].w].end()){
-                            s[q][j]=s2[q-1][j-a[i].w]+a[i].a;
+                        if(s[q-1][j-a[i].w]+a[i].a>s[q][j]&&se[j-a[i].w][i]==false){
+                            s[q][j]=s[q-1][j-a[i].w]+a[i].a;
 //                            cout <<s2[q-1][j-a[i].w]<<" "<<a[i].a<<" "<< s[q][j]<<endl;
                             push[j]=i;
                         }
                     }
-                    s[q][j]=max(s[q][j],s2[q-1][j]);
+                    s[q][j]=max(s[q][j],s[q-1][j]);
                 }
 
             }
             for(int j=1;j<=m;j++){
-                s2[q][j]=s[q][j];
-                se[j].insert(push[j]);
+                se[j][push[j]]=true;
             }
-            for(int ss=1;ss<=k;ss++){
-                for(int sq=1;sq<=m;sq++){
-                    cout << s[ss][sq]<<" ";
-                }
-                cout << endl;
-            }
+//            for(int ss=1;ss<=k;ss++){
+//                for(int sq=1;sq<=m;sq++){
+//                    cout << s[ss][sq]<<" ";
+//                }
+//                cout << endl;
+//            }
         }
         cout << s[k][m]<<endl;
     }
