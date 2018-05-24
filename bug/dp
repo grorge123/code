@@ -1,51 +1,53 @@
+#include<cstdio>
 #include<bits/stdc++.h>
+#include "omp.h"
 using namespace std;
-long long int s[105][1005];
-struct th{
-    long long int a=0,w=0;
-};
-bool cmp(th a,th b){
-    return a.w<b.w;
-}
+long long dp[2005][2005]={},old[2005][2005]={};
 int main(){
-    int t;
-    cin >> t;
-    while(t--){
-        int n,m,k;
-        cin >> n>>m>>k;
-        th a[105];
-        for(int i=1;i<=n;i++){
-            cin >> a[i].w>>a[i].a;
-        }
-        bool se[1005][105]={};
-        sort(a,a+n,cmp);
-        memset(s,0,sizeof(s));
-//        memset(s2,0,sizeof(s2));
-        for(int q=1;q<=k;q++){
-            int push[1005]={};
-            for(int j=m;j>=0;j--){
-                for(int i=1;i<=n;i++){
-                    if(j-a[i].w>=0){
-                        if(s[q-1][j-a[i].w]+a[i].a>s[q][j]&&se[j-a[i].w][i]==false){
-                            s[q][j]=s[q-1][j-a[i].w]+a[i].a;
-//                            cout <<s2[q-1][j-a[i].w]<<" "<<a[i].a<<" "<< s[q][j]<<endl;
-                            push[j]=i;
-                        }
-                    }
-                    s[q][j]=max(s[q][j],s[q-1][j]);
-                }
-
-            }
-            for(int j=1;j<=m;j++){
-                se[j][push[j]]=true;
-            }
-//            for(int ss=1;ss<=k;ss++){
-//                for(int sq=1;sq<=m;sq++){
-//                    cout << s[ss][sq]<<" ";
-//                }
-//                cout << endl;
-//            }
-        }
-        cout << s[k][m]<<endl;
+    #pragma omp parallel for
+    int n,a,b,k,st,ed,ty;
+//    cin >> n>>a>>b>>k;
+    scanf("%d %d %d %d",&n,&a,&b,&k);
+    if(b>a){
+        st=1;
+        ed=b-1;
+        ty=1;
+    }else{
+        st=b+1;
+        ed=n;
+        ty=2;
     }
+    for(int q=st;q<=ed;q++){
+        if(abs(q-a)<abs(b-a)&&q!=a){
+            dp[1][q]+=1;
+        }
+    }
+    for(int i=2;i<=k;i++){
+        for(int q=st;q<=ed;q++){
+            old[i][q]=old[i][q-1]+dp[i-1][q];
+        }
+        for(int d=st;d<=ed;d++){
+            if(ty==1){
+                cout <<int(b-(abs(b-d)/2))<<endl;
+                dp[i][d]+=old[i][int(b-(abs(b-d)/2))]-old[i][st-1];
+                dp[i][d]%=1000000007;
+            }else{
+                dp[i][d]+=old[i][ed]-old[i][int(b+floor(abs(d-b)/2.0))];
+                dp[i][d]%=1000000007;
+            }
+        }
+    }
+    int ans=0;
+    for(int q=1;q<=k;q++){
+        for(int i=st;i<=ed;i++){
+            cout << dp[q][i]<<" ";
+        }
+        cout <<endl;
+    }
+    for(int i=st;i<=ed;i++){
+        ans+=dp[k][i];
+        ans%=1000000007;
+    }
+//    cout << ans<<endl;
+    printf("%d\n",ans);
 }
