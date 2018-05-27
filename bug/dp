@@ -1,53 +1,62 @@
-#include<cstdio>
-#include<bits/stdc++.h>
-#include "omp.h"
+#include<iostream>
+#include<string.h>
+#include <stdlib.h>
+#define MAX 100005
 using namespace std;
-long long dp[2005][2005]={},old[2005][2005]={};
+long long int CeilIndex(long long int *a, long long int left, long long int right, long long int key){
+    while(right-left > 1) {
+        int m = left + (right - left)/2;
+
+        if(a[m] >= key)
+            right = m;
+        else
+            left = m;
+    }
+    return right;
+}
+
+long long int LIS(long long int *a, long long int size){
+    long long int *tailtable = (long long int*)malloc(sizeof(long long int) * (size+10));
+    long long int len;
+
+    memset(tailtable, 0, sizeof(tailtable));
+    len = 1;
+
+    tailtable[0] = a[0];
+
+    for(int i=1; i<size; i++) {
+        if(a[i] >= tailtable[len-1])
+            tailtable[len++] = a[i];
+        else
+            tailtable[CeilIndex(tailtable, -1, len-1, a[i])] = a[i];
+    }
+    free(tailtable);
+    return len;
+}
+long long s[MAX*3];
 int main(){
-    #pragma omp parallel for
-    int n,a,b,k,st,ed,ty;
-//    cin >> n>>a>>b>>k;
-    scanf("%d %d %d %d",&n,&a,&b,&k);
-    if(b>a){
-        st=1;
-        ed=b-1;
-        ty=1;
-    }else{
-        st=b+1;
-        ed=n;
-        ty=2;
-    }
-    for(int q=st;q<=ed;q++){
-        if(abs(q-a)<abs(b-a)&&q!=a){
-            dp[1][q]+=1;
-        }
-    }
-    for(int i=2;i<=k;i++){
-        for(int q=st;q<=ed;q++){
-            old[i][q]=old[i][q-1]+dp[i-1][q];
-        }
-        for(int d=st;d<=ed;d++){
-            if(ty==1){
-                cout <<int(b-(abs(b-d)/2))<<endl;
-                dp[i][d]+=old[i][int(b-(abs(b-d)/2))]-old[i][st-1];
-                dp[i][d]%=1000000007;
-            }else{
-                dp[i][d]+=old[i][ed]-old[i][int(b+floor(abs(d-b)/2.0))];
-                dp[i][d]%=1000000007;
+    int t;
+    cin >> t;
+    while(t--){
+        memset(s,0,sizeof(s));
+        long long int n,m,e=0;
+        cin >> n>>m;
+        for(int i=0;i<n;i++){
+            int a;
+            cin >> a;
+            if(a*2>=m){
+                s[e]=a*2;
+                e++;
+            }
+            if(a>=m){
+                s[e]=a;
+                e++;
             }
         }
-    }
-    int ans=0;
-    for(int q=1;q<=k;q++){
-        for(int i=st;i<=ed;i++){
-            cout << dp[q][i]<<" ";
+        if(e==0){
+            cout << 0<<endl;
+            continue;
         }
-        cout <<endl;
+            cout << LIS(s,e)<<endl;
     }
-    for(int i=st;i<=ed;i++){
-        ans+=dp[k][i];
-        ans%=1000000007;
-    }
-//    cout << ans<<endl;
-    printf("%d\n",ans);
 }
