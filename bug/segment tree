@@ -83,7 +83,7 @@ void build(int id,int l,int r){
 long long int query_line(int L,int R,int id,int l,int r,int ty){
 //    cout << l<<" "<<r<<" "<<m[id]<<endl;
     if(L<=l&&R>=r){
-        if(L==l&&r==R){
+        if(ty==0){
             return s[id];
         }else if(ty==1){
             return sr[id];
@@ -95,7 +95,10 @@ long long int query_line(int L,int R,int id,int l,int r,int ty){
     int m=(l+r)/2;
     long long int a=0;
     if(m>=L) a+=query_line(L,R,id*2,l,m,1);
-    if(m<R) a=max(a,max(a+query_line(L,R,id*2+1,m+1,r,2),query_line(L,R,id*2+1,m+1,r,2)));
+//    if(m<R) a+=max(a,max(a+query_line(L,R,id*2+1,m+1,r,2),query_line(L,R,id*2+1,m+1,r,2)));
+    if(m<R) a+=query_line(L,R,id*2+1,m+1,r,2);
+    if(m>=L) a=max(a,query_line(L,R,id*2,l,m,0));
+    if(m<R) a=max(a,query_line(L,R,id*2+1,m+1,r,0));
     return a;
 
 }
