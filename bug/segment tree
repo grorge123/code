@@ -96,7 +96,7 @@ long long int query_line(int L,int R,int id,int l,int r,int ty){
     long long int a=0;
     if(m>=L) a+=query_line(L,R,id*2,l,m,1);
 //    if(m<R) a+=max(a,max(a+query_line(L,R,id*2+1,m+1,r,2),query_line(L,R,id*2+1,m+1,r,2)));
-    if(m<R) a+=query_line(L,R,id*2+1,m+1,r,2);
+    if(m<R) a=max(a,max(query_line(L,R,id*2+1,m+1,r,2),a+query_line(L,R,id*2+1,m+1,r,2)));
     if(m>=L) a=max(a,query_line(L,R,id*2,l,m,0));
     if(m<R) a=max(a,query_line(L,R,id*2+1,m+1,r,0));
     return a;
