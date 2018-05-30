@@ -1,33 +1,61 @@
 #include<cstdio>
 #include<bits/stdc++.h>
 using namespace std;
-#define max(a,b) a>b?a:b
-#define min(a,b) a<b?a:b
+//#define max(a,b) a>b?a:b
+//#define min(a,b) a<b?a:b
 const int Max=100005;
-long long int s[Max*4]={},sl[Max*4]={},sr[Max*4]={};
+long long int s[Max*4]={},sl[Max*4]={},sr[Max*4]={},sm[Max*4]={};
 void build(int id,int l,int r){
     if(l==r){
         cin >> s[id];
         sl[id]=s[id];
         sr[id]=s[id];
+        sm[id]=s[id];
         return;
     }
     int m=(l+r)/2;
     build(id*2,l,m);
     build(id*2+1,m+1,r);
-    if(s[id]+s[id*2]>0){
-        s[id]+=sr[id*2];
-        sl[id]=s[id];
-    }else{
-        sl[id]=0;
-    }
-    if(s[id]+s[id*2+1]>0){
-        s[id]+=sl[id*2+1];
-        sr[id]=s[id];
-        sl[id]=s[id];
-    }else{
-        sr[id]=0;
-    }
+    int a=max(s[id*2],max(s[id*2+1],sr[id*2]+sl[id*2+1])),nl,nr;
+    if(a<0){a=0,nl=0,nr=0;}
+    if(a==s[id*2]){nl=sl[id*2],nr=sm[id*2+1]+sr[id*2];}
+    if(a==s[id*2+1]){nr=sr[id*2+1],nl=sm[id*2]+sr[id*2+1];}
+    if(a==sr[id*2]+sl[id*2+1]){nl=sm[id*2]+sl[id*2+1],nr=sm[id*2+1]+sr[id*2];}
+    if(nl<0)nl=0;
+    if(nr<0)nr=0;
+    s[id]=a;
+    sr[id]=nr;
+    sl[id]=nl;
+    sm[id]=sm[id*2]+sm[id*2+1];
+//    if(sr[id*2]+sl[id*2+1]<0){
+//        if(sr[id*2]<0&&sl[id*2+1]>0){
+//            s[id]=
+//            sl[id]=
+//            sr[id]=
+//        }else if(sr[id*2]<0&&sl[id*2+1]>0){
+//            s[id]=
+//            sl[id]=
+//            sr[id]=
+//        }else{
+//            s[id]=
+//            sr[id]=
+//            sl[id]=
+//        }
+//    }else{
+//        if(sr[id*2]>0&&sl[id*2+1]<0){
+//            s[id]=
+//            sl[id]=
+//            sr[id]=
+//        }else if(sr[id*2]<0&&sl[id*2+1]>0){
+//            s[id]=
+//            sl[id]=
+//            sr[id]=
+//        }else{
+//            s[id]=max(s[id*2],max(s[id*2+1],max(sr[id*2]+sl[id*2+1],0)));
+//            sl[id]=max(s[id*2],max(s[id*2+1],max(sr[id*2]+sl[id*2+1],0)));
+//            sr[id]=max(s[id*2],max(s[id*2+1],max(sr[id*2]+sl[id*2+1],0)));
+//        }
+//    }
     return;
 }
 //long long int query_line(int L,int R,int id,int l,int r){
@@ -52,45 +80,58 @@ void build(int id,int l,int r){
 //    if(R>m) a+=query_line(L,R,id*2+1,m+1,r);
 //    return a;
 //}
-long long int query_line(int L,int R,int id,int l,int r){
+long long int query_line(int L,int R,int id,int l,int r,int ty){
 //    cout << l<<" "<<r<<" "<<m[id]<<endl;
     if(L<=l&&R>=r){
-//        cout << l<<" "<<r<<endl;
-        return s[id];
+        if(L==l&&r==R){
+            return s[id];
+        }else if(ty==1){
+            return sr[id];
+        }else if(ty==2){
+            return sl[id];
+        }
     }
 //    pushdown(id,r-l+1);
     int m=(l+r)/2;
     long long int a=0;
-    if(m>=L) a+=query_line(L,R,id*2,l,m);
-    if(m<R) a+=query_line(L,R,id*2+1,m+1,r);
+    if(m>=L) a+=query_line(L,R,id*2,l,m,1);
+    if(m<R) a=max(a,max(a+query_line(L,R,id*2+1,m+1,r,2),query_line(L,R,id*2+1,m+1,r,2)));
     return a;
 
 }
-int query_line2(int L,int R,int id,int l,int r){
-//    cout << l<<" "<<r<<" "<<m[id]<<endl;
-    if(L<=l&&R>=r){
-//        cout << l<<" "<<r<<endl;
-        return s[id];
-    }
-//    pushdown(id,r-l+1);
-    int m2=(l+r)/2;
-    int Ma=-1e9;
-    if(m2>=L) Ma=max(Ma,query_line2(L,R,id*2,l,m2));
-    if(m2<R) Ma=max(query_line2(L,R,id*2+1,m2+1,r),Ma);
-    return Ma;
-
-}
+//int query_line2(int L,int R,int id,int l,int r){
+////    cout << l<<" "<<r<<" "<<m[id]<<endl;
+//    if(L<=l&&R>=r){
+////        cout << l<<" "<<r<<endl;
+//        return s[id];
+//    }
+////    pushdown(id,r-l+1);
+//    int m2=(l+r)/2;
+//    int Ma=-1e9;
+//    if(m2>=L) Ma=max(Ma,query_line2(L,R,id*2,l,m2));
+//    if(m2<R) Ma=max(query_line2(L,R,id*2+1,m2+1,r),Ma);
+//    return Ma;
+//
+//}
 int main(){
     int N,Q;
     scanf("%d %d",&N,&Q);
     build(1,1,N);
 //    for(int i=0;i<20;i++){
+//        cout << s[i]<<" ";
+//    }
+//    cout << endl;
+//    for(int i=0;i<20;i++){
 //        cout << sl[i]<<" ";
+//    }
+//    cout << endl;
+//    for(int i=0;i<20;i++){
+//        cout << sr[i]<<" ";
 //    }
     for(int i=0;i<Q;i++){
         int a,b;
         scanf("%d %d",&a,&b);
-        long long int ans=query_line(a,b,1,1,N);
+        long long int ans=query_line(a,b,1,1,N,0);
 //        printf("%d\n",query_line2(a,b,1,1,N));
         cout <<(ans>0?ans:0)<<endl;
     }
