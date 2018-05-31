@@ -4,6 +4,7 @@ using namespace std;
 //#define max(a,b) a>b?a:b
 //#define min(a,b) a<b?a:b
 const int Max=100005;
+vector<int> vans;
 long long int s[Max*4]={},sl[Max*4]={},sr[Max*4]={},sm[Max*4]={};
 void build(int id,int l,int r){
     if(l==r){
@@ -27,95 +28,20 @@ void build(int id,int l,int r){
     sr[id]=nr;
     sl[id]=nl;
     sm[id]=sm[id*2]+sm[id*2+1];
-//    if(sr[id*2]+sl[id*2+1]<0){
-//        if(sr[id*2]<0&&sl[id*2+1]>0){
-//            s[id]=
-//            sl[id]=
-//            sr[id]=
-//        }else if(sr[id*2]<0&&sl[id*2+1]>0){
-//            s[id]=
-//            sl[id]=
-//            sr[id]=
-//        }else{
-//            s[id]=
-//            sr[id]=
-//            sl[id]=
-//        }
-//    }else{
-//        if(sr[id*2]>0&&sl[id*2+1]<0){
-//            s[id]=
-//            sl[id]=
-//            sr[id]=
-//        }else if(sr[id*2]<0&&sl[id*2+1]>0){
-//            s[id]=
-//            sl[id]=
-//            sr[id]=
-//        }else{
-//            s[id]=max(s[id*2],max(s[id*2+1],max(sr[id*2]+sl[id*2+1],0)));
-//            sl[id]=max(s[id*2],max(s[id*2+1],max(sr[id*2]+sl[id*2+1],0)));
-//            sr[id]=max(s[id*2],max(s[id*2+1],max(sr[id*2]+sl[id*2+1],0)));
-//        }
-//    }
     return;
 }
-//long long int query_line(int L,int R,int id,int l,int r){
-//    if(l==r){
-//        return s[id];
-//    }
-////    cout << l<<" "<<r<<" "<<endl;
-//    if(l>=L&&r<=R){
-//        long long int a=0,m=(l+r)/2;
-////        cout <<l<<" "<<r<<" "<< s[m*2+1]<<endl;
-//        if(s[id*2]>0){
-//            a+=query_line(L,R,id*2,l,m);
-//        }
-//        if(s[id*2+1]>0){
-//            a+=query_line(L,R,id*2+1,m+1,r);
-//        }
-//        return a;
-//    }
-//    int m=(l+r)/2;
-//    long long int a=0;
-//    if(L<=m) a+=query_line(L,R,id*2,l,m);
-//    if(R>m) a+=query_line(L,R,id*2+1,m+1,r);
-//    return a;
-//}
 long long int query_line(int L,int R,int id,int l,int r,int ty){
-//    cout << l<<" "<<r<<" "<<m[id]<<endl;
     if(L<=l&&R>=r){
-        if(ty==0){
-            return s[id];
-        }else if(ty==1){
-            return sr[id];
-        }else if(ty==2){
-            return sl[id];
-        }
+        vans.push_back(id);
+        return 0;
     }
-//    pushdown(id,r-l+1);
     int m=(l+r)/2;
     long long int a=0;
     if(m>=L) a+=query_line(L,R,id*2,l,m,1);
-//    if(m<R) a+=max(a,max(a+query_line(L,R,id*2+1,m+1,r,2),query_line(L,R,id*2+1,m+1,r,2)));
-    if(m<R) a=max(a,max(query_line(L,R,id*2+1,m+1,r,2),a+query_line(L,R,id*2+1,m+1,r,2)));
-    if(m>=L) a=max(a,query_line(L,R,id*2,l,m,0));
-    if(m<R) a=max(a,query_line(L,R,id*2+1,m+1,r,0));
+    if(m<R) a+=query_line(L,R,id*2+1,m+1,r,2);
     return a;
 
 }
-//int query_line2(int L,int R,int id,int l,int r){
-////    cout << l<<" "<<r<<" "<<m[id]<<endl;
-//    if(L<=l&&R>=r){
-////        cout << l<<" "<<r<<endl;
-//        return s[id];
-//    }
-////    pushdown(id,r-l+1);
-//    int m2=(l+r)/2;
-//    int Ma=-1e9;
-//    if(m2>=L) Ma=max(Ma,query_line2(L,R,id*2,l,m2));
-//    if(m2<R) Ma=max(query_line2(L,R,id*2+1,m2+1,r),Ma);
-//    return Ma;
-//
-//}
 int main(){
     int N,Q;
     scanf("%d %d",&N,&Q);
@@ -134,9 +60,26 @@ int main(){
 //    cout << endl;
     for(int i=0;i<Q;i++){
         int a,b;
+        vans.clear();
         scanf("%d %d",&a,&b);
-        long long int ans=query_line(a,b,1,1,N,0);
-//        printf("%d\n",query_line2(a,b,1,1,N));
+        long long int ans=0;
+        query_line(a,b,1,1,N,0);
+//        for(int i=0;i<vans.size();i++){
+//            cout << vans[i]<<" ";
+//        }
+//        cout << endl;
+        for(int i=1;i<vans.size();i++){
+            ans=max(ans,sr[vans[i-1]]+sl[vans[i]]);
+            ans=max(ans,s[vans[i]]);
+        }
+        ans=max(ans,s[vans[0]]);
+        if(vans.size()>=3){
+            long long int al=sr[vans[0]]+sl[vans[vans.size()-1]];
+            for(int i=0;i<vans.size()-1;i++){
+                al+=sm[vans[i]];
+            }
+            ans=max(ans,al);
+        }
         cout <<(ans>0?ans:0)<<endl;
     }
 
