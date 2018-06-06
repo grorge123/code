@@ -1,0 +1,111 @@
+#include<cstdio>
+#include<bits/stdc++.h>
+using namespace std;
+#define Max 5005
+long long int f[Max],l[Max],n,m,a[Max];
+long long int g[Max],len,ans[Max],num[Max],pr[Max];
+deque<long long int>q[Max];
+long long int doit(){
+    l[1]=a[1];
+    f[1]=1;
+    long long int t=1;
+    for (int i=2;i<=n;i++)
+    {
+        if (a[i]>=l[t]){
+            l[++t]=a[i],f[i]=t;
+        }else{
+            long long int r=upper_bound(l+1,l+1+t,a[i])-l;
+//            cout << i<<" "<<r<<endl;
+            l[r]=a[i];
+            f[i]=r;
+        }
+    }
+    cout << t<<endl;
+    len=t;
+    return t;
+}
+
+void solve()
+{
+    long long int i,j;
+    for (i=1;i<=n;i++)
+    {
+        if (f[i]==1) g[i]=1;
+        else
+        {
+            long long int r=f[i]-1;
+            while (!q[r].empty()&&a[q[r].front()]>a[i])
+            {
+                ans[r]-=g[q[r].front()];
+                q[r].pop_front();
+            }
+            g[i]=ans[r];
+        }
+        long long int r=f[i];
+        while (!q[r].empty()&&a[q[r].back()]==a[i])
+        {
+            ans[r]-=g[q[r].back()];
+            q[r].pop_back();
+        }
+        ans[r]+=g[i];
+        q[r].push_back(i);
+    }
+    long long int cnt=0,t=0;
+    for (i=n;i>=1;i--)
+        if (f[i]==len&&a[i]>=t){
+           cnt+=g[i],t=a[i],cnt%=1000000007;
+        }
+    cout << cnt<<endl;
+}
+long long int CeilIndex(long long int *a, long long int left, long long int right, long long int key){
+    while(right-left > 1) {
+        int m = left + (right - left)/2;
+
+        if(a[m] < key)
+            right = m;
+        else
+            left = m;
+    }
+    return right;
+}
+
+long long int LIS(long long int *a, long long int size){
+    long long int *tailtable = (long long int*)malloc(sizeof(long long int) * (size+10));
+    long long int len;
+
+    memset(tailtable, 0, sizeof(tailtable));
+    len = 1;
+
+    tailtable[0] = a[0];
+    num[1]=1;
+    for(int i=1; i<size; i++) {
+        if(a[i] <= tailtable[len-1]){
+            num[i+1]=len+1;
+            tailtable[len++] = a[i];
+        }else{
+            long long int addre=CeilIndex(tailtable, -1, len-1, a[i]);
+            num[i+1]=addre+1;
+            tailtable[addre] = a[i];
+        }
+    }
+    free(tailtable);
+    return len;
+}
+int main()
+{
+    scanf("%d",&n);
+    for (int i=1;i<=n;i++) scanf("%d",&a[i]);
+    int ans1=doit();
+    solve();
+    reverse(a+1,a+n+1);
+    LIS(a+1,n);
+    long long int now=ans1;
+    for(int i=n;i>0;i--){
+//        cout << num[i]<<" ";
+        if(num[i]==now){
+            cout << n-i+1<<" ";
+            now--;
+        }
+    }
+    return 0;
+}
