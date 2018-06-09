@@ -1,0 +1,56 @@
+#include<bits/stdc++.h>
+using namespace std;
+vector<string > ve[1000009];
+int fi=0;
+long long int pow3(long long int a,long long int b)
+{
+    long long int ans = 1,base = a;
+    while(b!=0)
+    {
+        if(b&1)
+            ans *= base;
+        base *= base;
+        b>>=1;
+    }
+    return ans;
+}
+int ch(char a){
+    return a-'a';
+}
+long long int h(string s){
+    long long int re=0;
+    for(int i=0;i<s.size();i++){
+        re+=(ch(s[i])*pow3(s.size(),s.size()-i-1))%1000007;
+    }
+    return re;
+}
+void dfs(int deep,string s,int n){
+    for(int i=0;i<26;i++){
+        if(fi!=0)return;
+        while(s.size()>=deep&&s.size()!=0)s.pop_back();
+        s.push_back((char)i+'a');
+        if(deep==n-1){
+            int ans=h(s);
+            ve[ans].push_back(s);
+            if(ve[ans].size()==3){
+                fi=ans;
+                return;
+            }
+        }else{
+            dfs(deep+1,s,n);
+        }
+    }
+}
+int main(){
+    string s;
+    int n;
+    cin >> n;
+    dfs(0,s,n);
+    cout << fi<<endl;
+    for(int i=0;i<ve[fi].size();i++){
+        cout << ve[fi][i]<<endl;
+    }
+    while(cin >> s){
+        cout << h(s);
+    }
+}
