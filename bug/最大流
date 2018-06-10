@@ -1,0 +1,63 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define F first
+#define S second
+const int INF=0x7f7f7f7f;
+void dfs(int used[],int now,int en,int s[][105],int li[][105],int n,vector<int> ve){
+    if(now==en){
+        for(int i=0;i<ve.size();i++){
+            cout << ve[i]<<" ";
+        }
+        cout << endl;
+        int Min=INF;
+        for(int i=0;i<ve.size()-1;i++){
+            Min=min(s[ve[i]][ve[i+1]],Min);
+        }
+        for(int i=0;i<ve.size()-1;i++){
+            s[ve[i]][ve[i+1]]-=Min;
+            s[ve[i+1]][ve[i]]+=Min;
+        }
+        return;
+    }
+    for(int i=1;i<=n;i++){
+//        if(now==3){
+//            cout <<now<<" "<< used[i]<<" "<<i<<endl;
+//        }
+        if(s[now][i]!=0&&used[i]==0){
+            ve.push_back(i);
+            used[i]=1;
+            dfs(used,i,en,s,li,n,ve);
+            ve.pop_back();
+            used[i]=0;
+            cout <<now<<" "<< i<<endl;
+        }
+    }
+}
+int main(){
+    int n,st,en,m;
+    while(cin >> n>>st>>en>>m){
+        int s[105][105]={},li[105][105]={};
+        vector<pair<int,int> > pa;
+        for(int i=0;i<m;i++){
+            int a,b,c;
+            cin>>a>>b>>c;
+            s[a][b]+=c;
+            s[b][a]+=c;
+            li[a][b]+=c;
+            li[b][a]+=c;
+            pa.push_back(pair<int,int>(a,b));
+        }
+        int used[105]={};
+        vector<int> ve;
+        ve.push_back(st);
+        used[st]=1;
+        dfs(used,st,en,s,li,n,ve);
+        int ans=0;
+        for(int i=0;i<pa.size();i++){
+            ans+=abs(s[pa[i].F][pa[i].S]-s[pa[i].S][pa[i].F]);
+        }
+        cout << ans;
+        int endword;
+        cin >> endword;
+    }
+}
