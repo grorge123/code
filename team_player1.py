@@ -2,7 +2,6 @@ from AI.base import *
 from pygame.math import Vector2 as Vec
 
 import random
-
 class TeamAI( BaseAI ):
     def __init__( self , helper ):
         self.helper = helper
@@ -10,14 +9,29 @@ class TeamAI( BaseAI ):
 
     def decide( self ):
         helper = self.helper
-        hPos = helper.getMyHeadPos()
+        hpos = helper.getMyHeadPos()
         wb_radius = helper.getWhiteballRadius()
-        if helper.getOtherBulletNumInRange(hPos, 3 * wb_radius) > 0:
-            return AI_MoveWayChange
+        dash_distance = helper.dash_time*helper.dash_speed
         if not helper.checkMeInGrav():
-            if helper.bodyOnRoute() or helper.headOnRoute():
+            if helper.getOtherBulletNumInRange(hpos, 5 * wb_radius) > 0:
+                # if helper.getMyDashCoolRemainTime():
+                #     print(helper.getMyDashCoolRemainTime())
                 return AI_MoveWayChange
+            if helper.bodyOnRoute() or helper.headOnRoute():
+                body = helper.bodyOnRoute() + helper.headOnRoute()
+                l = len(body)
+                for i in range(l):
+                    if (hpos[1]-body[i][1])**2+(hpos[0]-body[i][0])**2 > dash_distance**2:
+                        return AI_NothingToDo
+                    else:
+                        return AI_MoveWayChange
         else :
-            if helper.checkMeCircling():
+            mygrav = helper.getMyGrav()
+            # if mygrav[0]
+            if helper.getOtherBulletNumInRange(hpos, 5 * wb_radius) > 0:
+                return AI_MoveWayChange
+            if helper.checkMeCircling() and helper.canGetBySpin() == 0:
+                return AI_MoveWayChange
+            if not helper.checkMeCircling() and helper.canGetBySpin() > 0:
                 return AI_MoveWayChange
         return AI_NothingToDo
