@@ -1,69 +1,83 @@
-#include<bits/stdc++.h>
+#include<iostream>
+#include<string.h>
+#include<queue>
 using namespace std;
+#define LL long long int
 #define F first
 #define S second
-#define LL long long int
-#define Max 100005
-#define pi pair<LL,LL>
-const LL INF=10000000000000;
-LL n,m,q;
-vector<pair<LL,LL> > ve[Max],ve2[Max];
-LL num[Max]={},num2[Max]={};
+#define pii pair<int,int>
+#define mes(x) memset(x,0,sizeof(x))
+const int INF=2147483647;
+struct node{
+    int to,next,w;
+}ve[1000005],ve2[1000005];
+int head[1000005]={},head2[1000005]={};
+long long int s[1000005]={},s2[1000005]={};
+bool vi[1000005]={};
 int main(){
-    cin >> n>>m>>q;
-    for(int i=1;i<=n;i++){
-        num[i]=INF;
-        num2[i]=INF;
-    }
-    for(int i=0;i<m;i++){
-        LL a,b,c;
-        cin >>a>>b>>c;
-        ve[a].push_back(pi(b,c));
-        ve2[b].push_back(pi(a,c));
-    }
-    priority_queue<pair<LL,LL>,vector<pair<LL,LL> >,greater<pair<LL,LL> > > pq;
-    num[1]=0;
-    int visit[Max]={};
-    pq.push(pi(0,1));
-    while(pq.size()){
-        LL now=pq.top().S;
-        pq.pop();
-        visit[now]=1;
-        if(now==n)break;
-        for(int i=0;i<ve[now].size();i++){
-            if(num[ve[now][i].F]>num[now]+ve[now][i].S&&visit[ve[now][i].F]==0){
-                num[ve[now][i].F]=num[now]+ve[now][i].S;
-                pq.push(pi(num[ve[now][i].F],ve[now][i].F));
+    int t;
+    cin >> t;
+    while(t--){
+        int n,m;
+        cin >> n>> m;
+        mes(vi);memset(head,-1,sizeof(head));memset(head2,-1,sizeof(head2));
+        for(int i=0;i<=m;i++){
+            ve[i].to=ve[i].next=ve[i].w=0;
+            ve2[i].to=ve2[i].next=ve2[i].w=0;
+        }
+        for(int i=1;i<=n;i++){
+            s[i]=s2[i]=INF;
+        }
+        for(int i=0;i<m;i++){
+            int a,b,c;
+            cin >> a>> b>> c;
+            ve[i].to=b;
+            ve[i].w=c;
+            ve[i].next=head[a];
+            ve2[i].to=a;
+            ve2[i].w=c;
+            ve2[i].next=head2[b];
+            head[a]=i;
+            head2[b]=i;
+        }
+        queue<int> qu;
+        qu.push(1);
+        s[1]=0;
+        vi[1]=1;
+        while(!qu.empty()){
+            int now=qu.front();qu.pop();
+            vi[now]=0;
+            for(int i=head[now];i>=0;i=ve[i].next){
+                if(s[ve[i].to]>s[now]+ve[i].w){
+                    s[ve[i].to]=s[now]+ve[i].w;
+                    if(!vi[ve[i].to]){
+                        qu.push(ve[i].to);
+                        vi[ve[i].to]=1;
+                    }
+                }
             }
         }
-    }
-    while(pq.size())pq.pop();
-    num2[n]=0;
-    int visit2[Max]={};
-    pq.push(pi(0,n));
-    while(pq.size()){
-        LL now=pq.top().S;
-        pq.pop();
-        visit2[now]=1;
-        if(now==1)break;
-        for(int i=0;i<ve2[now].size();i++){
-            if(num2[ve2[now][i].F]>num2[now]+ve2[now][i].S&&visit2[ve2[now][i].F]==0){
-                num2[ve2[now][i].F]=num2[now]+ve2[now][i].S;
-                pq.push(pi(num2[ve2[now][i].F],ve2[now][i].F));
+        qu.push(1);
+        s2[1]=0;
+        vi[1]=1;
+        while(!qu.empty()){
+            int now=qu.front();qu.pop();
+            vi[now]=0;
+            for(int i=head2[now];i>=0;i=ve2[i].next){
+                if(s2[ve2[i].to]>s2[now]+ve2[i].w){
+                    s2[ve2[i].to]=s2[now]+ve2[i].w;
+                    if(!vi[ve2[i].to]){
+                        qu.push(ve2[i].to);
+                        vi[ve2[i].to]=1;
+                    }
+                }
             }
         }
+        LL all=0;
+        for(int i=1;i<=n;i++){
+            all+=s[i]+s2[i];
+        }
+        cout <<all<<endl;
     }
-//    for(int i=1;i<=n;i++){
-//        cout << num[i]<<" ";
-//    }
-//    cout << endl;
-//    for(int i=1;i<=n;i++){
-//        cout << num2[i]<<" ";
-//    }
-//    cout << endl;
-    for(int i=0;i<q;i++){
-        LL a,b;
-        cin >> a>>b;
-        cout << min(num[n],num[a]+1+num2[b])<<endl;
-    }
+    return 0;
 }
