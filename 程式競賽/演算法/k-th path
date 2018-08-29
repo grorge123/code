@@ -35,10 +35,10 @@ int main(){
     s[en]=0;
     pq.push(pii(s[en],en));
     while(!pq.empty()){
-        while(!pq.empty()&&visit[pq.top().S])pq.pop();
-        if(pq.empty())break;
         pii now=pq.top();
+        pq.pop();
         visit[now.S]=1;
+        if (s[now.S] < now.F) continue;
         for(int i=0;i<ve[now.S].size();i++){
             if(s[ve[now.S][i].S]>s[now.S]+ve[now.S][i].F){
                 s[ve[now.S][i].S]=s[now.S]+ve[now.S][i].F;
@@ -53,22 +53,24 @@ int main(){
     if(st==en)k++;
     priority_queue<astar> paq;
     astar now;
-    int cnt=0;
+    int cnt[100005] = {0};
     now.id=st;now.len=0;now.h=s[st];
     paq.push(now);
     while(!paq.empty()){
         astar now=paq.top();paq.pop();
-        if(now.id==en)cnt++;
-        if(cnt==k){
+        cnt[now.id]++;
+        if(cnt[en]==k){
             cout << now.len<<endl;
             return 0;
         }
+        if(cnt[now.id] > k) continue;
+
         for(int i=0;i<ve2[now.id].size();i++){
             astar will;
             will.id=ve2[now.id][i].S;will.h=s[ve2[now.id][i].S];will.len=now.len+ve2[now.id][i].F;
             paq.push(will);
         }
     }
-    cout << -1<<endl;
+    cout << -1 <<endl;
     return 0;
 }
