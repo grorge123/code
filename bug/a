@@ -1,57 +1,52 @@
 #include<bits/stdc++.h>
 using namespace std;
-float tonum(string s){
-    float ans=0;
-    int add =0,st=0;
-    for(int i=0;i<s.size();i++){
-        if(s[i]=='.'){
-            st=1;
-            continue;
-        }
-        ans*=10;
-        if(st)add++;
-        ans+=s[i]-'0';
-    }
-    for(int i=0;i<add;i++){
-        ans/=10;
-    }
-    return ans;
-}
+#define F first
+#define S second
+#define pii pair<int,int>
+#define LL long long int
+const int INF=INT_MAX;
 int main(){
-    string s[5];
-    while(cin >> s[0]>>s[1]>>s[2]>>s[3]>>s[4]){
-        float se=0,ans=0;
-        if(s[0][0]=='x'){
-            se=tonum(s[2]);
-        }else if(s[2][0]=='x'){
-            se=tonum(s[0]);
+    char cst;
+    while(cin >> cst){
+        int n,st=cst-'A';
+        int s[205]={};
+        bool visit[205]={};
+//        for(int i=0;i<205;i++){
+//            s[i]=INF;
+//        }
+        cin >> n;
+        vector<pair<int,int> > ve[205]={};
+        for(int i=0;i<n;i++){
+            char a,b;
+            int c;
+            cin >> a>>b>> c;
+            ve[a-'A'].push_back(pair<int,int>(b-'A',c));
         }
-        ans=tonum(s[4]);
-//        cout << se<<" "<<ans<<endl;
-        if(s[1][0]=='+'){
-            if(s[0][0]=='x'){
-                printf("%.1f\n",floor((ans-se)*10)/10);
-            }else if(s[2][0]=='x'){
-                printf("%.1f\n",floor((ans-se)*10)/10);
-            }
-        }else if(s[1][0]=='-'){
-            if(s[0][0]=='x'){
-                printf("%.1f\n",floor((se+ans)*10)/10);
-            }else if(s[2][0]=='x'){
-                printf("%.1f\n",floor((se-ans)*10)/10);
-            }
-        }else if(s[1][0]=='*'){
-            if(s[0][0]=='x'){
-                printf("%.1f\n",floor((ans/se)*10)/10);
-            }else if(s[2][0]=='x'){
-                printf("%.1f\n",floor((ans/se)*10)/10);
-            }
-        }else if(s[1][0]=='/'){
-            if(s[0][0]=='x'){
-                printf("%.1f\n",floor((ans*se)*10)/10);
-            }else if(s[2][0]=='x'){
-                printf("%.1f\n",floor((se/ans)*10)/10);
+        priority_queue<pair<int,int>,vector<pair<int,int> >,greater<pair<int,int> > > pq;
+//        queue<pair<int,int> >pq;
+        s[st]=0;
+        pq.push(pii(s[st],st));
+        while(!pq.empty()){
+            while(!pq.empty()&&pq.top().F<s[pq.top().S])pq.pop();
+            int now=pq.top().S;pq.pop();
+            //visit[now]=0;
+//            cout << now<<" "<<s[now]<<endl;
+            for(int i=0;i<ve[now].size();i++){
+                if(s[ve[now][i].F]<s[now]+ve[now][i].S){
+                    s[ve[now][i].F]=s[now]+ve[now][i].S;
+                    //if(visit[ve[now][i].F]==0)
+                    pq.push(pii(s[ve[now][i].F],ve[now][i].F));
+                    //visit[ve[now][i].F]=1;
+                }
             }
         }
+        int Max=0;
+        for(int i=0;i<8;i++){
+//            cout << s[i]<<endl;
+            if(s[i]!=INF)
+                Max=max(Max,s[i]);
+        }
+        cout << Max<<endl;
     }
+    return 0;
 }
