@@ -19,7 +19,7 @@ int fa[MAX];
 line s[MAX*MAX/2];
 bool visit[MAX];
 int fi(int a){
-    if(fa[fa[a]]==a)return a;
+    if(fa[a]==a)return a;
     return fa[a]=fi(fa[a]);
 }
 int kurskal(int n){
@@ -70,6 +70,7 @@ int main(){
     for(int i=0;i<m;i++){
         LL a,b,c;
         cin >> a>>b>>c;
+        if(a==b){m--;continue;}
         s[i].a=a;s[i].b=b;s[i].c=c;
     }
     sort(s,s+m);
