@@ -95,8 +95,14 @@ int main(){
         stack<LL> sta;
         LL Max=0;
         DFS(s[i].a,s[i].a,&sta,0);//DFS找出迴圈裡的所有線段
+        int fi=0;
         while(!sta.empty()){//找出第二大縣段
-            if(sta.top()!=s[i].c)
+            if(sta.top()==s[i].c&&fi==0){
+                fi=1;
+                sta.pop();
+                continue;
+            }
+//            if(sta.top()!=s[i].c)
                 Max=max(Max,sta.top());
             sta.pop();
         }
