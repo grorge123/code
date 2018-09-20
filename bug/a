@@ -46,19 +46,20 @@ int kurskal(int n){
 }
 bool DFS(int now,int en,stack<LL> *st,int pa){
 //    cout <<"ve:"<< now<<" "<<en<<endl;
-    if(now==en&&(*st).size()!=0){
+    if(now==en&&(*st).size()>1){
 //        cout << "ASD"<<endl;
         return true;
     }
+    visit[now]=1;
     for(int i=0;i<ve[now].size();i++){
-        if(!visit[ve[now][i].F]&&ve[now][i].F!=pa){
-            visit[ve[now][i].F]=1;
+        if(!visit[ve[now][i].F]||((*st).size()>1&&ve[now][i].F==en)){
             (*st).push(ve[now][i].S);
             if(DFS(ve[now][i].F,en,st,now))return true;
+            (*st).pop();
         }
     }
+    visit[now]=0;
 //    cout << "pop"<<now<<" "<<(*st).size()<<endl;
-    (*st).pop();
     return false;
 }
 int main(){
@@ -102,6 +103,7 @@ int main(){
         ve[s[i].a].pop_back();
         ve[s[i].b].pop_back();
         AllMax=min(s[i].c-Max,AllMax);
+//        cout << s[i].c<<" "<<Max<<endl;
     }
 //    cout << AllMax<<endl;
     cout << ans1+AllMax<<endl;
