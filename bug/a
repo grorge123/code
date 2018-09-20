@@ -57,7 +57,7 @@ bool DFS(int now,int en,stack<LL> *st,int pa){
             if(DFS(ve[now][i].F,en,st,now))return true;
         }
     }
-//    cout << "pop"<<endl;
+//    cout << "pop"<<now<<" "<<(*st).size()<<endl;
     (*st).pop();
     return false;
 }
@@ -84,16 +84,25 @@ int main(){
         cout << -1<<endl;
         return 0;
     }
-    ve[s[0].a].push_back(pll(s[0].b,s[0].c));
-    ve[s[0].b].push_back(pll(s[0].a,s[0].c));//將最短非最小生成樹線段的線丟進圖
-    stack<LL> sta;
-    LL Max=0;
-    DFS(s[0].a,s[0].a,&sta,0);//DFS找出迴圈裡的所有線段
-    while(!sta.empty()){//找出第二大縣段
-        if(sta.top()!=s[0].c)
-            Max=max(Max,sta.top());
-        sta.pop();
+    LL AllMax=INF;
+    for(int i=0;s[i].c!=INF&&i<m;i++){
+        memset(visit,0,sizeof(visit));
+//        cout << i<<endl;
+        ve[s[i].a].push_back(pll(s[i].b,s[i].c));
+        ve[s[i].b].push_back(pll(s[i].a,s[i].c));//將最短非最小生成樹線段的線丟進圖
+        stack<LL> sta;
+        LL Max=0;
+        DFS(s[i].a,s[i].a,&sta,0);//DFS找出迴圈裡的所有線段
+        while(!sta.empty()){//找出第二大縣段
+            if(sta.top()!=s[i].c)
+                Max=max(Max,sta.top());
+            sta.pop();
+        }
+        ve[s[i].a].pop_back();
+        ve[s[i].b].pop_back();
+        AllMax=min(s[i].c-Max,AllMax);
     }
-    cout << ans1-Max+s[0].c<<endl;
+//    cout << AllMax<<endl;
+    cout << ans1+AllMax<<endl;
     return 0;
 }
