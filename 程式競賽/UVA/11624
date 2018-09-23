@@ -1,0 +1,96 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define IOS ios::sync_with_stdio(); cin.tie(0);
+#define F first
+#define S second
+#define pii pair<int,int>
+#define endl '\n'
+const int MAX=1005;
+int fire[MAX][MAX],peo[MAX][MAX];
+char s[MAX][MAX];
+bool check(int a,int b,int c,int d){
+    if(a<0||b<0)
+        return false;
+    if(a>c||b>d)
+        return false;
+    return true;
+}
+int main(){
+    IOS
+    int t;
+    cin >> t;
+    while(t--){
+        memset(fire,0,sizeof(fire));memset(peo,0,sizeof(peo));memset(s,0,sizeof(s));
+        pair<int,int> stfi,stpeo;
+        int n,m;
+        queue<pii> qu;
+        cin >> n>>m;
+        for(int i=1;i<=n;i++){
+            for(int q=1;q<=m;q++){
+                cin >> s[i][q];
+                if(s[i][q]=='F'){
+                    stfi.F=i;stfi.S=q;
+                    qu.push(stfi);
+                    fire[stfi.F][stfi.S]=1;
+                }else if(s[i][q]=='J'){
+                    stpeo.F=i;stpeo.S=q;
+//                    cout << stpeo.F<<" "<<stpeo.S<<endl;
+                }
+            }
+        }
+        int d[4][2]={{0,1},{1,0},{-1,0},{0,-1}};
+        while(!qu.empty()){
+            pii now=qu.front();qu.pop();
+            for(int i=0;i<4;i++){
+                pii will;will.F=now.F+d[i][0];will.S=now.S+d[i][1];
+                if(s[will.F][will.S]=='.'&&fire[will.F][will.S]==0){
+                    fire[will.F][will.S]=fire[now.F][now.S]+1;
+                    qu.push(will);
+                }
+            }
+        }
+        int out=0;
+        pii outpi;
+        qu.push(stpeo);
+        peo[stpeo.F][stpeo.S]=1;
+        while(!qu.empty()&&!out){
+            pii now=qu.front();qu.pop();
+            for(int i=0;i<4;i++){
+                pii will;
+                will.F=now.F+d[i][0];
+                will.S=now.S+d[i][1];
+                if(s[will.F][will.S]=='.'&&(fire[will.F][will.S]>peo[now.F][now.S]+1||fire[will.F][will.S]==0)&&peo[will.F][will.S]==0){
+                    peo[will.F][will.S]=peo[now.F][now.S]+1;
+                    qu.push(will);
+                }else if(s[now.F+d[i][0]][now.S+d[i][1]]==0){
+                    out=1;
+                    outpi=will;
+                    peo[outpi.F][outpi.S]=peo[now.F][now.S]+1;
+//                    cout << s[outpi.F][outpi.S]<<endl;
+                    break;
+                }
+            }
+
+        }
+//        for(int i=0;i<=n+1;i++){
+//            for(int q=0;q<=m+1;q++){
+//                cout << fire[i][q]<<' ';
+//            }
+//            cout << endl;
+//        }
+//        cout << endl;
+//        for(int i=0;i<=n+1;i++){
+//            for(int q=0;q<=m+1;q++){
+//                cout << peo[i][q]<<' ';
+//            }
+//            cout << endl;
+//        }
+//        cout <<"|(OVO)|"<<endl;
+        if(out){
+            cout <<peo[outpi.F][outpi.S]-1<<endl;
+        }else{
+            cout << "IMPOSSIBLE"<<endl;
+        }
+    }
+    return 0;
+}
