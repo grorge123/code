@@ -62,6 +62,7 @@ int main(){
                 fa[fifa(li[i].a)]=fifa(li[i].b);
                 li[i].match=true;
                 s[li[i].a].push_back(pii(li[i].b,li[i].c));
+                s[li[i].b].push_back(pii(li[i].a,li[i].c));
                 all+=li[i].c;
             }
         }
