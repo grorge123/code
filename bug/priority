@@ -1,0 +1,60 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define F first
+#define S second
+#define pii pair<int,int>
+const int INF=INT_MAX;
+bool check(pii now,int n,int m){
+    if(now.F<0||now.S<0)
+        return false;
+    if(now.F>=n||now.S>=m)
+        return false;
+    return true;
+}
+struct cmp{
+    bool operator () ( const pair<int,pii> & a , const pair<int,pii> & b )const{
+        return a.F < b.F ;
+    }
+};
+int main(){
+    int n,m;
+    while(cin >>n>>m){
+        int s[15][15]={},goal[15][15]={};
+        for(int i=0;i<n;i++){
+            for(int q=0;q<m;q++){
+                goal[i][q]=INF;
+            }
+        }
+        for(int i=0;i<n;i++){
+            for(int q=0;q<m;q++){
+                cin >> s[i][q];
+            }
+        }
+        priority_queue<pair<int,pii>,vector<pair<int,pii> >,cmp > pq;
+        goal[0][0]=s[0][0];
+        pq.push(pair<int,pii>(goal[0][0],pii(0,0)));
+        int d[4][2]={{0,1},{1,0},{-1,0},{1,0}};
+        while(!pq.empty()){
+            while(!pq.empty()&&goal[pq.top().S.F][pq.top().S.S]<pq.top().F)pq.pop();
+            if(pq.empty())break;
+            pii now=pq.top().S;pq.pop();
+//            cout << goal[now.F][now.S]<<' '<<pq.size()<<endl;
+//            if(now.F==n-1&&now.S==m-1)break;
+            for(int i=0;i<4;i++){
+                pii will;will.F=now.F+d[i][0];will.S=now.S+d[i][1];
+                if(check(will,n,m)&&goal[now.F][now.S]+s[will.F][will.S]<goal[will.F][will.S]){
+                    goal[will.F][will.S]=goal[now.F][now.S]+s[will.F][will.S];
+//                    cout << will.F<<' '<<will.S<<' '<<goal[will.F][will.S]<<' '<<goal[now.F][now.S]<<' '<<s[will.F][will.S]<<' '<<now.F<<' '<<now.S<<endl;
+                    pq.push(pair<int,pii>(goal[will.F][will.S],pii(will.F,will.S)));
+                }
+            }
+        }
+//        for(int i=0;i<n;i++){
+//            for(int q=0;q<m;q++){
+//                cout << goal[i][q]<<' ';
+//            }
+//            cout << endl;
+//        }
+        cout << goal[n-1][m-1]<<endl;
+    }
+}
