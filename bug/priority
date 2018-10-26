@@ -1,60 +1,72 @@
-#include<bits/stdc++.h>
+http://poj.org/problem?id=1065
+//#include<bits/stdc++.h>
+#include<iostream>
+#include<algorithm>
+#include <utility>
 using namespace std;
 #define F first
 #define S second
 #define pii pair<int,int>
-const int INF=INT_MAX;
-bool check(pii now,int n,int m){
-    if(now.F<0||now.S<0)
-        return false;
-    if(now.F>=n||now.S>=m)
-        return false;
-    return true;
+const int Mnum=5005;
+int lower(int st[],int n,int x){
+    int l=0,r=n,re=0;
+    while(l<r){
+        int m=(l+r)/2;
+        if(st[m]>=x){
+            re=m;
+            l=m+1;
+        }else{
+            r=m-1;
+        }
+    }
+    return re;
 }
-struct cmp{
-    bool operator () ( const pair<int,pii> & a , const pair<int,pii> & b )const{
-        return a.F < b.F ;
-    }
-};
-int main(){
-    int n,m;
-    while(cin >>n>>m){
-        int s[15][15]={},goal[15][15]={};
-        for(int i=0;i<n;i++){
-            for(int q=0;q<m;q++){
-                goal[i][q]=INF;
-            }
-        }
-        for(int i=0;i<n;i++){
-            for(int q=0;q<m;q++){
-                cin >> s[i][q];
-            }
-        }
-        priority_queue<pair<int,pii>,vector<pair<int,pii> >,cmp > pq;
-        goal[0][0]=s[0][0];
-        pq.push(pair<int,pii>(goal[0][0],pii(0,0)));
-        int d[4][2]={{0,1},{1,0},{-1,0},{1,0}};
-        while(!pq.empty()){
-            while(!pq.empty()&&goal[pq.top().S.F][pq.top().S.S]<pq.top().F)pq.pop();
-            if(pq.empty())break;
-            pii now=pq.top().S;pq.pop();
-//            cout << goal[now.F][now.S]<<' '<<pq.size()<<endl;
-//            if(now.F==n-1&&now.S==m-1)break;
-            for(int i=0;i<4;i++){
-                pii will;will.F=now.F+d[i][0];will.S=now.S+d[i][1];
-                if(check(will,n,m)&&goal[now.F][now.S]+s[will.F][will.S]<goal[will.F][will.S]){
-                    goal[will.F][will.S]=goal[now.F][now.S]+s[will.F][will.S];
-//                    cout << will.F<<' '<<will.S<<' '<<goal[will.F][will.S]<<' '<<goal[now.F][now.S]<<' '<<s[will.F][will.S]<<' '<<now.F<<' '<<now.S<<endl;
-                    pq.push(pair<int,pii>(goal[will.F][will.S],pii(will.F,will.S)));
-                }
-            }
-        }
-//        for(int i=0;i<n;i++){
-//            for(int q=0;q<m;q++){
-//                cout << goal[i][q]<<' ';
-//            }
-//            cout << endl;
+//int LCS(pii s[],int n){
+//    int st[Mnum],po=-1;
+//    for(int i=0;i<n;i++){
+//        if(po<0||s[i].S<st[po]){
+//            po++;
+//            st[po]=s[i].S;
+//        }else{
+//            st[lower(st,n,s[i].S)]=s[i].S;
 //        }
-        cout << goal[n-1][m-1]<<endl;
+//    }
+//    return po+1;
+//}
+int LCS(pii s[],int n){
+    int re[Mnum]={};
+    for(int i=0;i<n;i++){
+        for(int q=0;q<i;q++){
+            if(s[i].S<s[q].S){
+                re[i]=max(re[i],re[q]+1);
+            }
+        }
     }
+    int MAX=0;
+    for(int i=0;i<n;i++){
+        MAX=max(MAX,re[i]);
+    }
+    return MAX+1;
+}
+bool cmp(pii a,pii b){
+    if(a.F==b.F)
+        return a.S<b.S;
+    return a.F<b.F;
+}
+int main(){
+    int t;
+    cin >> t;
+    while(t--){
+        int n;
+        pii s[Mnum];
+        cin >>n;
+        for(int i=0;i<n;i++){
+            cin >> s[i].F>>s[i].S;
+        }
+        sort(s,s+n,cmp);
+        int ans=0;
+        ans=LCS(s,n);
+        cout << ans<<endl;
+    }
+    return 0;
 }
