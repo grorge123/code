@@ -1,0 +1,72 @@
+http://poj.org/problem?id=1065
+//#include<bits/stdc++.h>
+#include<iostream>
+#include<algorithm>
+#include <utility>
+using namespace std;
+#define F first
+#define S second
+#define pii pair<int,int>
+const int Mnum=5005;
+int lower(int st[],int n,int x){
+    int l=0,r=n,re=0;
+    while(l<r){
+        int m=(l+r)/2;
+        if(st[m]>=x){
+            re=m;
+            l=m+1;
+        }else{
+            r=m-1;
+        }
+    }
+    return re;
+}
+//int LCS(pii s[],int n){
+//    int st[Mnum],po=-1;
+//    for(int i=0;i<n;i++){
+//        if(po<0||s[i].S<st[po]){
+//            po++;
+//            st[po]=s[i].S;
+//        }else{
+//            st[lower(st,n,s[i].S)]=s[i].S;
+//        }
+//    }
+//    return po+1;
+//}
+int LCS(pii s[],int n){
+    int re[Mnum]={};
+    for(int i=0;i<n;i++){
+        for(int q=0;q<i;q++){
+            if(s[i].S<s[q].S){
+                re[i]=max(re[i],re[q]+1);
+            }
+        }
+    }
+    int MAX=0;
+    for(int i=0;i<n;i++){
+        MAX=max(MAX,re[i]);
+    }
+    return MAX+1;
+}
+bool cmp(pii a,pii b){
+    if(a.F==b.F)
+        return a.S<b.S;
+    return a.F<b.F;
+}
+int main(){
+    int t;
+    cin >> t;
+    while(t--){
+        int n;
+        pii s[Mnum];
+        cin >>n;
+        for(int i=0;i<n;i++){
+            cin >> s[i].F>>s[i].S;
+        }
+        sort(s,s+n,cmp);
+        int ans=0;
+        ans=LCS(s,n);
+        cout << ans<<endl;
+    }
+    return 0;
+}
