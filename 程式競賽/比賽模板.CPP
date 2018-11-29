@@ -53,7 +53,9 @@ template<typename _t> void pary(_t _a,_t _b){_OUTC(cerr,_a,_b);cerr<<endl;}
 #define RI(x) x=rit()
 #define RII(a,b) a=rit(),b=rit()
 #define RIII(a,b,c) a=rit(),b=rit(),c=rit()
-const int INF = 0x7f7f7f7f;
+const int INF = 2147483647;
+const int mod = 1e9+7;
+const LL seed = 0xdefaced;
 inline LL rit(){
     LL f=0,key=1;
     char c;
