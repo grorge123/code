@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
 using namespace std;
 typedef pair<int,int> pii;
-#define FOR(i,j,k,l) for(int i=k;i<j;i+=l)
-#define FAR(i,j,k,l) for(int i=k;i>j;i-=l)
-#define FOR1(i,j,k,l) for(int i=k;i<=j;i+=l)
-#define FAR1(i,j,k,l) for(int i=k;i>=j;i-=l)
+#define FOR(i,j,k,l) for(int i=j;i<k;i+=l)
+#define FAR(i,j,k,l) for(int i=j;i>k;i-=l)
+#define FOR1(i,j,k,l) for(int i=j;i<=k;i+=l)
+#define FAR1(i,j,k,l) for(int i=j;i>=k;i-=l)
 #define rep(i,j,k) FOR(i,j,k,1)
 #define rap(i,j,k) FAR(i,j,k,1)
 #define rep1(i,j,k) FOR1(i,j,k,1)
