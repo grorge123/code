@@ -23,6 +23,8 @@ typedef pair<int,int> pii;
 #define ALL(x) x.begin(),x.end()
 #define RALL(x) x.rbegin(),x.rend()
 #define D double
+#define min(a,b) a>b?b:a;
+#define max(a,b) a>b?a:b;
 #ifdef grorge
 #define debug(...) do{\
     fprintf(stderr,"%s - %d (%s) = ",__PRETTY_FUNCTION__,__LINE__,#__VA_ARGS__);\
@@ -45,7 +47,6 @@ template<typename _a> ostream &operator << (ostream &_s,vector<_a> &_c){return _
 template<typename _a> ostream &operator << (ostream &_s,set<_a> &_c){return _OUTC(_s,ALL(_c));}
 template<typename _a,typename _b> ostream &operator << (ostream &_s,map<_a,_b> &_c){return _OUTC(_s,ALL(_c));}
 template<typename _t> void pary(_t _a,_t _b){_OUTC(cerr,_a,_b);cerr<<endl;}
-#define IOS()
 #else
 #define debug(...)
 #define pary(...)
