@@ -1,0 +1,17 @@
+#include<iostream>
+using namespace std;
+int main(){
+    int l,s,ans=0;
+    cin >> l>>s;
+    while(l!=s){
+        if(l>s){
+            s+=5;
+            ans++;
+        }else{
+            s-=2;
+            ans++;
+        }
+    }
+    cout << ans<<endl;
+    return 0;
+}
