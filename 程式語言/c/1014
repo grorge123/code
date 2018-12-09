@@ -1,0 +1,16 @@
+#include<iostream>
+using namespace std;
+int main(){
+    int n,all=0;
+    cin >> n;
+    for(int i=1;i<=n;i++){
+        all+=i;
+        if(i==1){
+            cout << i;
+        }else{
+            cout << "+"<<i;
+        }
+    }
+    cout << " = "<<all;
+    return 0;
+}
