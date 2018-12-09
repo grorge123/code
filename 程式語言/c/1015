@@ -1,0 +1,11 @@
+#include<iostream>
+#include<stdio.h>
+using namespace std;
+int main(){
+    char a;
+    while(scanf("%c",&a)==1){
+        cout << a;
+        if(a=='q')return 0;
+    }
+    return 0;
+}
