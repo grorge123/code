@@ -1,0 +1,17 @@
+#include<iostream>
+using namespace std;
+int main(){
+    int a,b;
+    cin >> a>> b;
+    if((b-2*a)%2!=0||(b-2*a)<0){
+        cout << "NO"<<endl;
+    }else{
+        cout << "YES"<<endl;
+        cout << a-(b-2*a)/2<<' '<<(b-2*a)/2<<endl;
+    }
+    return 0;
+}
+//2x+4y=b
+//x+y=a
+//2x+2y=2a
+//2y=b-2a
