@@ -1,0 +1,22 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main(){
+    int n,s[500]={};
+    scanf("%d",&n);
+    for(int i=0;i<n;i++){
+        scanf("%d",&s[i]);
+    }
+    for(int i=0;i<n;i++){
+        for(int q=0;q<n-1;q++){
+            if(s[q]>s[q+1]){
+                int tmp=s[q+1];
+                s[q+1]=s[q];
+                s[q]=tmp;
+            }
+        }
+    }
+    for(int i=0;i<n;i++){
+        printf("%d ",s[i]);
+    }
+    return 0;
+}
