@@ -1,0 +1,12 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+int main(){
+    char a;
+    while(scanf("%c",&a)==1){
+        if(a!='y')break;
+        printf("run\n");
+        getchar();
+    }
+    return 0;
+}
