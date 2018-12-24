@@ -23,8 +23,8 @@ typedef pair<int,int> pii;
 #define ALL(x) x.begin(),x.end()
 #define RALL(x) x.rbegin(),x.rend()
 #define D double
-#define min(a,b) a>b?b:a;
-#define max(a,b) a>b?a:b;
+#define min(a,b) (a>b?b:a)
+#define max(a,b) (a>b?a:b)
 #ifdef grorge
 #define debug(...) do{\
     fprintf(stderr,"%s - %d (%s) = ",__PRETTY_FUNCTION__,__LINE__,#__VA_ARGS__);\
@@ -50,9 +50,9 @@ template<typename _t> void pary(_t _a,_t _b){_OUTC(cerr,_a,_b);cerr<<endl;}
 #else
 #define debug(...)
 #define pary(...)
-#define endl '\n'
-#define IOS() ios_base::sync_with_stdio(0);cin.tie(0);
 #endif
+#define endl '\n'
+#define IOS ios_base::sync_with_stdio(0);cin.tie(0);
 #define MS0(x) memset((x),0,sizeof((x)))
 #define MS1(x) memset((x),-1,sizeof((x)))
 #define RI(x) x=rit()
@@ -75,6 +75,6 @@ inline LL rit(){
     return f*key;
 }
 int main(){
-    cout << INF;
+    cout << min(INF,8);
     return 0;
 }
