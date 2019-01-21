@@ -52,7 +52,7 @@ template<typename _t> void pary(_t _a,_t _b){_OUTC(cerr,_a,_b);cerr<<endl;}
 #define pary(...)
 #endif
 #define endl '\n'
-#define IOS ios_base::sync_with_stdio(0);cin.tie(0);
+#define IOS ios_base::sync_with_stdio();cin.tie(0);
 #define MS0(x) memset((x),0,sizeof((x)))
 #define MS1(x) memset((x),-1,sizeof((x)))
 #define RI(x) x=rit()
@@ -75,6 +75,7 @@ inline LL rit(){
     return f*key;
 }
 int main(){
+    IOS
     cout << min(INF,8);
     return 0;
 }
