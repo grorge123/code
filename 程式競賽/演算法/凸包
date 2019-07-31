@@ -1,0 +1,71 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define F first
+#define S second
+#define pii pair<int,int>
+pii s[1005] = {};
+pii vec(pii a, pii b){
+    return pii(b.F-a.F,b.S-a.S);
+}
+int cross(pii a,pii b){
+    return (a.F*b.S)-(a.S*b.F);
+}
+int dis(pii a, pii b){
+    return (b.F-a.F)*(b.F-a.F)+(b.S-a.S)*(b.S-a.S);
+}
+bool cmp(pii a, pii b){
+    int  as = cross(vec(s[0],a),vec(s[0],b));
+//    cout <<vec(s[0],a).F<<' ' << vec(s[0],a).S<<' ' << vec(s[0],b).F<<' ' << vec(s[0],b).S << ' '<< as << endl;
+    if(as == 0){
+        return dis(s[0],a)<dis(s[0],b);
+    }else{
+        return as>0;
+    }
+}
+
+int32_t main(){
+    int n;
+    cin >> n;
+    for(int i = 0 ; i < n ; i++){
+        cin >> s[i].F>> s[i].S;
+    }
+    if(n == 1){
+        cout << s[0].F<<' ' <<s[0].S;
+        return 0;
+    }
+    int head = 0, MIN = s[0].S;
+    for(int i = 1 ; i < n ; i++){
+        if(s[i].S<MIN){
+            MIN = s[i].S;
+            head = i;
+        }
+    }
+
+    swap(s[0],s[head]);
+    stack<pii> qu;
+    sort(s+1,s+n,cmp);
+    qu.push(s[0]);
+    qu.push(s[1]);
+    for(int i = 2 ; i < n ; i++){
+        pii now = qu.top();qu.pop();
+        if(cross(vec(qu.top(),now),vec(qu.top(),s[i]))<0){
+            i--;
+            continue;
+        }
+        qu.push(now);
+        qu.push(s[i]);
+    }
+    pii ans[1005] = {};
+    int qus = qu.size();
+    for(int i = 0 ; i < qus ; i++){
+        ans[i] = qu.top();qu.pop();
+    }
+    sort(ans,ans+qus);
+    for(int i = 0 ; i < qus ; i++){
+        if(i==0)
+            cout <<  ans[i].F<<' ' << ans[i].S;
+        else
+            cout <<endl<< ans[i].F<<' ' << ans[i].S;
+    }
+    return 0;
+}
