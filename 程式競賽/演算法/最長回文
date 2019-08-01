@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    string s,a;
+    cin >> s;
+    for(int i = 0 ; i < s.size() ; i++){
+        a.push_back('@');
+        a.push_back(s[i]);
+    }
+    s = a+'@';
+    int d[300005] = {};
+    int ri = 0,ce = 0,ans = 0;
+    for(int i = 1 ; i < s.size() ; i++){
+        d[i] = ri>i?min(ri-i,d[2*ce-i]):0;
+        while(i+d[i]<s.size()&&i-d[i]>=0&&s[i+d[i]]==s[i-d[i]])d[i]++;
+        if(i+d[i]>ri){
+            ri = i+d[i];
+            ce = i;
+        }
+        ans = max(ans,d[i]-1);
+    }
+    cout << ans << endl;
+    return 0;
+}
