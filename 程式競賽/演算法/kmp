@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+void get_f(string a,int f[]){
+    f[0] = -1;
+    int id = -1;
+    for(int i = 1 ; i < a.size() ; i++){
+        while(id>0&&a[id+1]!=a[i])id = f[id];
+        if(a[id+1]==a[i])id++;
+        f[i] = id;
+    }
+}
+inline void kmp_fail(string s,int len,int *fail){
+	int id=-1;
+	fail[0]=-1;
+	for(int i=1;i<len;++i){
+		while(~id&&s[id+1]!=s[i])id=fail[id];
+		if(s[id+1]==s[i])++id;
+		fail[i]=id;
+	}
+}
+int kmp(string a,string b){
+    int f[100005] = {};
+    get_f(a,f);
+    int re = 0;
+    for(int i = 0, j = -1; i < b.size() ; i++){
+        while(j>0&&a[j+1]!=b[i])j = f[j];
+        if(a[j+1]==b[i])j++;
+        if(j==a.size()-1){
+            re++;
+            j = f[j];
+        }
+    }
+    return re;
+}
+int main(){
+    string a,b;
+    cin >> a >> b;
+    cout << kmp(a,b);
+    return 0;
+}
