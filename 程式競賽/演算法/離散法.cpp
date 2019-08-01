@@ -25,7 +25,7 @@ int main()
     }
 
     sort(v.begin(),v.end());
-    cout << *unique(v.begin(),v.end())<<endl;
+    //cout << *unique(v.begin(),v.end())<<endl;
     v.erase(unique(v.begin(),v.end()) ,v.end());
     for(int i=0;i<(int)v.size();i++)
         printf("%d ",v[i]);
