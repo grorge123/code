@@ -1,0 +1,73 @@
+#include<bits/stdc++.h>
+using namespace std;
+vector<int> ve[500005] = {};
+int dep[500005] = {},f[500005] = {}, pos[500005] = {};
+int num = 1;
+int dp[1000005][20] = {};
+bool visit[500005] = {};
+void DFS(int now,int deep){
+    dep[num] = deep;
+    f[num] = now;
+    visit[now] = 1;
+    if(pos[now] == 0){
+        pos[now] = num;
+    }
+    num++;
+    for(int i = 0 ; i < int(ve[now].size()) ; i++){
+        if(visit[ve[now][i]])
+            continue;
+        DFS(ve[now][i],deep+1);
+        dep[num] = deep;
+        f[num] = now;
+        num++;
+    }
+    return;
+}
+void st()
+{
+    for(int i = 1; i <= num; ++i)
+        dp[i][0] = i;
+    for(int j = 1; (1<<j) <= num; ++j)
+    {
+        for(int i = 1; i+(1<<j)-1 <= num; ++i)
+        {
+            int mid = i + (1 << (j-1));
+            if(dep[dp[i][j-1]] < dep[dp[mid][j-1]])
+                dp[i][j] = dp[i][j-1];
+            else
+                dp[i][j] = dp[mid][j-1];
+        }
+    }
+}
+
+int rmq(int l, int r)
+{
+    l = pos[l];
+    r = pos[r];
+    if(l > r)
+        swap(l,r);
+    int len = r-l+1;
+    int len2 = log2(len);
+    if(dep[dp[l][len2]] < dep[dp[r-(1<<len2)+1][len2]])
+        return dp[l][len2];
+    return dp[r-(1<<len2)+1][len2];
+}
+int main(){
+    int n,m,S;
+    cin >> n >> m >> S;
+    for(int i = 0 ; i < n-1 ; i++){
+        int a, b;
+        cin >> a >> b;
+        ve[a].push_back(b);
+        ve[b].push_back(a);
+    }
+    num = 1;
+    DFS(S, 1);
+    st();
+    for(int q = 0 ; q < m ; q ++){
+        int a,b;
+        cin >> a >> b;
+        cout << f[rmq(a,b)]<<endl;
+    }
+    return 0;
+}
