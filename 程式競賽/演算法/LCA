@@ -48,7 +48,7 @@ int main(){
         ve[b].push_back(a);
     }
     dep[s] = 1;
-    dfs(s,-1);
+    dfs(s,0);
     for(int i = 0 ; i < m ; i++){
         int a,b;
         cin >> a >> b;
