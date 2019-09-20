@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define int long double
+#define F first
+#define S second
+#define pii pair<int,int>
+pii vec(pii a,pii b){
+    return pii(b.F-a.F,b.S-a.S);
+}
+int cross(pii a,pii b){
+    return (a.F*b.S)-(a.S*b.F);
+}
+int32_t main(){
+    pii a,b,c,d;
+    cin >> a.F>>a.S>>b.F>>b.S>>c.F>>c.S>>d.F>>d.S;
+    a.F/=10000;
+    a.S/=10000;
+    b.F/=10000;
+    b.S/=10000;
+    c.F/=10000;
+    c.S/=10000;
+    d.F/=10000;
+    d.S/=10000;
+    int AL = cross(vec(a,b),vec(a,c));
+    int AR = cross(vec(a,b),vec(a,d));
+    int BL = cross(vec(c,d),vec(c,a));
+    int BR = cross(vec(c,d),vec(c,b));
+    if(a==c||a==d||b==c||b==d){
+        cout << "YES"<<endl;
+        return 0;
+    }
+    if(AL==0){
+        if(a.F>b.F){
+            swap(b,a);
+        }
+        if(c.F>d.F){
+            swap(c,d);
+        }
+        if((c.F<=b.F&&b.F<=d.F)||(c.F<=a.F&&a.F<=d.F)||(a.F<=c.F&&c.F<=b.F)||(a.F<=d.F&&d.F<=b.F)){
+            cout << "YES"<<endl;
+        }else{
+            cout << "NO"<<endl;
+        }
+        return 0;
+    }else{
+//        cout << AL<<' ' <<AR<<' ' <<BL<<' ' <<BR<<endl;
+        bool t1 = 0,t2 = 0;
+        if((AL>0&&AR<0)||(AR>0&&AL<0)){
+            t1 = 1;
+        }
+        if((BL>0&&BR<0)||(BR>0&&BL<0)){
+            t2 = 1;
+        }
+        if(t1&&t2){
+            cout << "YES"<<endl;
+        }else{
+            cout << "NO"<<endl;
+        }
+    }
+    return 0;
+}
