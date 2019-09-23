@@ -1,0 +1,128 @@
+https://zerojudge.tw/ShowProblem?problemid=c455
+#include<bits/stdc++.h>
+using namespace std;
+#define F first
+#define S second
+#define pii pair<int,int>
+const int head = 300003,tail = 300004;
+struct node{
+    int b=0, w=0, la=0;
+    node(int bb,int ww,int lala){
+        b = bb, w = ww, la = lala;
+    }
+};
+vector<node> ve[300010] = {};
+int dep[300010] = {};
+bool bfs(int head,int tail){
+    for (int i=0; i<300010; i++) dep[i] = 0;
+    queue<int> qu;
+    qu.push(head);
+    dep[head] = 1;
+    while(!qu.empty()){
+        int now = qu.front();qu.pop();
+        for(int i = 0 ; i < ve[now].size() ; i++){
+            if(dep[ve[now][i].b] == 0 && ve[now][i].w > 0){
+                dep[ve[now][i].b] = dep[now] + 1;
+                qu.push(ve[now][i].b);
+            }
+        }
+    }
+    if(dep[tail]!=0){
+        return true;
+    }
+    return false;
+}
+bool BFS(int head,int tail){
+    for (int i=0; i<300010; i++) dep[i] = -1;
+    queue<int> que;
+    que.push(head);
+    dep[head] = 0;
+    while (!que.empty()){
+      int u = que.front(); que.pop();
+      for (auto it : ve[u]){
+        if (it.w > 0 && dep[it.b] == -1){
+          dep[it.b] = dep[u]+1;
+          que.push(it.b);
+        }
+      }
+    }
+    return dep[tail] != -1;
+  }
+int flow(int now,int tail,vector<pii> st){
+    if(now == tail){
+        int MIN = 2047483647;
+        for(int i = 0 ; i < st.size() ; i++){
+            MIN = min(ve[st[i].F][st[i].S].w, MIN);
+        }
+        for(int i = 0 ; i < st.size() ; i++){
+            ve[st[i].F][st[i].S].w -= MIN;
+            ve[ve[st[i].F][st[i].S].b][ve[st[i].F][st[i].S].la].w += MIN;
+        }
+        return MIN;
+    }
+    for(int i = 0 ; i < ve[now].size() ; i++){
+        if(dep[ve[now][i].b]==dep[now]+1&&ve[now][i].w > 0){
+            st.push_back(pii(now,i));
+            int fl = flow(ve[now][i].b, tail, st);
+            if(fl)return fl;
+            st.pop_back();
+        }
+    }
+    return 0;
+}
+int dfs(int now,int tail,int nf){
+    if(now == tail)return nf;
+    int res = 0;
+    for(int i = 0 ; i < ve[now].size() ; i ++){
+        if(ve[now][i].w>0&&dep[ve[now][i].b]==dep[now]+1){
+            int tf = dfs(ve[now][i].b, tail, min(nf,ve[now][i].w));
+            res += tf; nf -= tf; ve[now][i].w-=tf;
+            ve[ve[now][i].b][ve[now][i].la].w += tf;
+            if(nf==0)return res;
+        }
+    }
+    if(!res) dep[now] = -1;
+    return res;
+}
+int dinic(){
+    int re = 0;
+    while(bfs(head, tail)){
+        vector<pii> st;
+        while(int now = dfs(head, tail, 2147483647)){
+            st.clear();
+            re += now;
+        }
+    }
+    return re;
+}
+void add_edge(int a,int b,int w){
+    ve[a].push_back(node(b,w,ve[b].size()));
+    ve[b].push_back(node(a,0,ve[a].size()-1));
+}
+int32_t main(){
+    int t;
+    cin >> t;
+    while(t--){
+        for(int i = 0 ; i <= 300010 ; i++){
+            ve[i].clear();
+        }
+        int p,q,k;
+        cin >> p >> q >> k ;
+        for(int i = 0 ; i < k ; i++){
+            int a,b;
+            cin >> a >> b;
+            b += p;
+            add_edge(a,b,1);
+        }
+        for(int i = 1 ; i <= p ; i++){
+            add_edge(head,i,1);
+        }
+        for(int i = 1 ; i <= q ; i++){
+            int b = i+p;
+            add_edge(b,tail,1);
+        }
+        int ans = dinic();
+        cout << ans <<endl;
+    }
+    return 0;
+}
