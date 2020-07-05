@@ -1,6 +1,6 @@
 # 其他設定
-
-編輯vimrc
+## 修改tab為4個空排
+ 編輯vimrc
 
     sudo vim /etc/vim/vimrc
    
@@ -69,8 +69,10 @@ vim 的自補充字體
 
     Plugin 'Valloric/YouCompleteMe'    
 
-## 下載youcompleteme
-
-## 編譯youcompleteme
-
+## 下載編譯youcompleteme
+    git clone https://github.com/Valloric/YouCompleteMe.git ~/.vim/bundle/YouCompleteMe
+    cd ~/.vim/bundle/YouCompleteMe
+    python3 install.py -all
 ## BUG 修復
+### NoExtraConfDetected: No .ycm_extra_conf.py file detected
+    https://blog.csdn.net/u014070086/article/details/88692896
