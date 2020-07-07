@@ -1,5 +1,10 @@
 #include<bits/stdc++.h>
+//#include<bits/extc++.h>
+//using namespace __gnu_cxx;
+//using namespace __gnu_pbds;
 using namespace std;
+#pragma GCC optimize ("O3,unroll-loops")
+#pragma GCC target ("fma,avx")
 typedef pair<int,int> pii;
 #define FOR(i,j,k,l) for(int i=j;i<k;i+=l)
 #define FAR(i,j,k,l) for(int i=j;i>k;i-=l)
