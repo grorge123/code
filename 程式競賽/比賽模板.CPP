@@ -63,7 +63,12 @@ template<typename _t> void pary(_t _a,_t _b){_OUTC(cerr,_a,_b);cerr<<endl;}
 #define RI(x) x=rit()
 #define RII(a,b) a=rit(),b=rit()
 #define RIII(a,b,c) a=rit(),b=rit(),c=rit()
-#define getchar() (p1 == p2 && (p2 = (p1 = buf) + fread(buf, 1, 1<<21, stdin), p1==p2) ? EOF : *p1++)
+inline char readchar() {
+	const int S = 1<<20; // buffer size
+	static char buf[S], *p = buf, *q = buf;
+	if(p == q && (q = (p=buf)+fread(buf,1,S,stdin)) == buf) return EOF;
+	return *p++;
+}
 const int INF = 2147483647;
 const int mod = 1e9+7;
 const LL seed = 0xdefaced;
