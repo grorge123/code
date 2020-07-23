@@ -63,20 +63,33 @@ template<typename _t> void pary(_t _a,_t _b){_OUTC(cerr,_a,_b);cerr<<endl;}
 #define RI(x) x=rit()
 #define RII(a,b) a=rit(),b=rit()
 #define RIII(a,b,c) a=rit(),b=rit(),c=rit()
-inline char readchar() {
-	const int S = 1<<20; // buffer size
-	static char buf[S], *p = buf, *q = buf;
-	if(p == q && (q = (p=buf)+fread(buf,1,S,stdin)) == buf) return EOF;
-	return *p++;
-}
+const int bufS = 1 << 20; // buffer size
+static char buf[bufS], *p = buf, *q = buf, pbuf[bufS], pp = -1;
 const int INF = 2147483647;
 const int mod = 1e9+7;
 const LL seed = 0xdefaced;
+inline void flush(){
+    fwrite(pbuf, 1, pp + 1, stdout), pp = -1;
+}
+inline void print(int x){
+    static char sta[20];
+    int top = 0;
+    if(pp > 1 << 20) flush();
+    if(x < 0)pbuf[++pp] = '-', x = -x;
+    do {sta[top++] = x % 10 + '0';}while(x /= 10);
+    while(top) pbuf[++pp] = sta[--top];
+    pbuf[++pp] = '\n';
+}
+inline char readchar() {
+	if(p == q && (q = (p=buf)+fread(buf,1,bufS,stdin)) == buf) return EOF;
+	return *p++;
+}
 inline LL rit(){
     LL f=0,key=1;
     char c;
     do{
-        c=getchar();
+        c = getchar();
+//        c = readchar();
         if(c=='-') key=-1;
     }while(c<'0' || c>'9');
     do{
@@ -87,6 +100,7 @@ inline LL rit(){
 }
 int main(){
     IOS
-    cout << min(INF,8);
+
+    flush();
     return 0;
 }
