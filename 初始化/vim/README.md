@@ -72,7 +72,7 @@ vim 的自補充字體
     git clone https://github.com/Valloric/YouCompleteMe.git ~/.vim/bundle/YouCompleteMe
     cd ~/.vim/bundle/YouCompleteMe
     git submodule update --init --recursive
-    python3 install.py -all
+    ./install.py -all
 ## 安裝vim插件
 在vim裡面執行
 
