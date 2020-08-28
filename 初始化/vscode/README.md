@@ -27,4 +27,4 @@ ctrl+alt+n 編譯或是右上角三角形或是F1輸入Run Code
 * Jupyter
 * Python
 * jupyter-notebook-vscode
-* VS Code jupyter Notebook Previewer
+* VS Code Jupyter Notebook Previewer
