@@ -10,4 +10,6 @@
     sudo apt-get install bridge-utils
     sudo apt-get install nvidia-driver-450
     sudo apt-get install tlp
+    sudo systemctl enable tlp
+    sudo tlp-stat
     sudo apt-get install powertop
