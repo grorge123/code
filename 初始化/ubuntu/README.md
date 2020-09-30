@@ -6,6 +6,7 @@
     gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
 
 ## bridge ubuntu
+    sudo ubuntu-drivers autoinstall
     sudo apt-get install bridge-utils
     sudo apt-get install nvidia-driver-450
     sudo apt-get install tlp
