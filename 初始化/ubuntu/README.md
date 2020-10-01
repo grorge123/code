@@ -13,3 +13,6 @@
     sudo systemctl enable tlp
     sudo tlp-stat
     sudo apt-get install powertop
+## 中文輸入法
+rime
+https://www.ubuntu-tw.org/modules/newbb/viewtopic.php?post_id=290350
