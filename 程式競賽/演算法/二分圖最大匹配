@@ -1,0 +1,62 @@
+//https://tioj.ck.tp.edu.tw/problems/1253
+#include<bits/stdc++.h>
+using namespace std;
+#define endl '\n'
+bool dfs(int head, int now, vector<int> ve[], vector<int> cho[], vector<int> other[],bool tag[], bool type, bool vis[]){
+    vis[now] = 1;
+    if(now != head && !tag[now]){
+        tag[now] = 1;
+        return true;
+    }else{
+        for(int i = 0 ; i < ve[now].size() ; i++){
+            if(!(type ^ cho[now][i]) && !vis[ve[now][i]]){
+                if(dfs(head, ve[now][i], ve, cho, other, tag, !type, vis)){
+                    cho[now][i] = !cho[now][i];
+                    cho[ve[now][i]][other[now][i]] = !cho[ve[now][i]][other[now][i]];
+                    tag[now] = 1;
+                    return true;
+                }
+            }
+        }
+    }
+    vis[now] = 0;
+    return false;
+}
+int main(){
+    int n, k, t = 1;
+    while(cin >> n >> k){
+        if(n == 0 && k == 0)return 0;
+        vector<int> ve[1005] = {};
+        vector<int> cho[1005] = {};
+        vector<int> other[1005] = {};
+        bool tag[1005 * 2] = {};
+        for(int i = 0 ; i < k ; i++){
+            int a, b;
+            cin >> a >> b;
+            ve[a].push_back(b + n);
+            other[a].push_back(ve[b + n].size());
+            ve[b + n].push_back(a);
+            other[b + n].push_back(ve[a].size() - 1);
+            cho[a].push_back(0);
+            cho[b + n].push_back(0);
+        }
+        for(int i = 1 ; i <= n ; i++){
+            bool vis[1005 * 2] = {};
+            if(!tag[i]){
+                dfs(i, i, ve, cho, other, tag, 0, vis);
+            }
+        }
+        int ans = 0;
+        for(int i = 1 ; i <= n ; i++){
+            for(int q = 0 ; q < ve[i].size() ; q++){
+                if(cho[i][q]){
+                    ans++;
+                }
+            }
+        }
+        cout << "Case #" << t << ":";
+        cout << ans << endl;
+        t++;
+    }
+    return 0;
+}
