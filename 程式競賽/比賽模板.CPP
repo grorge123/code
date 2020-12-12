@@ -4,6 +4,7 @@
 //using namespace __gnu_pbds;
 using namespace std;
 #pragma GCC optimize ("O3,unroll-loops")
+#pragma loop_opt(on)
 #pragma GCC target("avx,avx2,fma") 
 typedef pair<int,int> pii;
 #define FOR(i,j,k,l) for(int i=j;i<k;i+=l)
