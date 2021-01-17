@@ -12,6 +12,9 @@ vscode程式IDE
 
 ## 通用extensions
 * TabNine
+* GitLens
+* Remote-Containers
+* Docker
 ## setting.json
 路徑
     ~/.config/Code/User/settings.json
