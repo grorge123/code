@@ -5,5 +5,6 @@
     //windows
     %USERPROFILE%\AppData\Roaming\CodeBlocks
 ## Arch linux
-pacman -Sy codeblocks
-pacman -Sy wget zip xterm
+    pacman -Sy codeblocks
+    pacman -Sy wget zip xterm
+字體可以設定爲 monospace
