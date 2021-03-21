@@ -22,7 +22,7 @@ int main(){
         ve[a].push_back(pii(c,b));
     }
     cin >> st>>en;
-    priority_queue<pii> pq;
+    priority_queue<pii, vector<pii>, greater<pii> > pq;
     s[st]=0;
     pq.push(pii(s[st],st));
     while(!pq.empty()){
