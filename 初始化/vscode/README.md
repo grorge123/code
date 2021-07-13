@@ -15,6 +15,7 @@ vscode程式IDE
 * GitLens
 * Remote-Containers
 * Docker
+* awesome-vscode
 ## setting.json
 路徑
     ~/.config/Code/User/settings.json
