@@ -15,6 +15,7 @@ vscode程式IDE
 * GitLens
 * Remote-Containers
 * Docker
+* Bracket Pair Colorizer 2
 * awesome-vscode
 ## setting.json
 路徑
