@@ -4,6 +4,9 @@
 
     //windows
     %USERPROFILE%\AppData\Roaming\CodeBlocks
+    // linux
+    ~/.config/codeblocks
+    
 ## Arch linux
     pacman -Sy codeblocks
     pacman -Sy wget zip xterm
