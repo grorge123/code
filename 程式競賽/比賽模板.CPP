@@ -3,35 +3,18 @@
 //using namespace __gnu_cxx;
 //using namespace __gnu_pbds;
 using namespace std;
-#pragma GCC optimize ("O3,unroll-loops")
-#pragma loop_opt(on)
-#pragma GCC target("avx,avx2,fma") 
+#pragma GCC optimize("O3,unroll-loops")
+#pragma GCC target("avx,fma,avx2,bmi,bmi2,lzcnt,popcnt")
+#define endl '\n'
 typedef pair<int,int> pii;
-#define FOR(i,j,k,l) for(int i=j;i<k;i+=l)
-#define FAR(i,j,k,l) for(int i=j;i>k;i-=l)
-#define FOR1(i,j,k,l) for(int i=j;i<=k;i+=l)
-#define FAR1(i,j,k,l) for(int i=j;i>=k;i-=l)
-#define rep(i,j,k) FOR(i,j,k,1)
-#define rap(i,j,k) FAR(i,j,k,1)
-#define rep1(i,j,k) FOR1(i,j,k,1)
-#define rap1(i,j,k) FAR1(i,j,k,1)
-#define rip(i,k) FOR(i,0,k,1)
-#define rip1(i,k) FOR1(i,0,k,1)
-#define rtp(i,k) FAR(i,k,0,1)
-#define rtp1(i,k) FAR1(i,k,0,1)
 #define pb push_back
 #define F first
 #define S second
 #define LL long long int
-#define be(a) a.begin
-#define itr iterator
-#define p_q priority_queue
-#define ALL(x) x.begin(),x.end()
-#define RALL(x) x.rbegin(),x.rend()
-#define D double
 #define min(a,b) (a>b?b:a)
 #define max(a,b) (a>b?a:b)
 #ifdef grorge
+#define IOS ios::sync_with_stdio(0);cin.tie(0);
 #define debug(...) do{\
     fprintf(stderr,"%s - %d (%s) = ",__PRETTY_FUNCTION__,__LINE__,#__VA_ARGS__);\
     _do(__VA_ARGS__);\
@@ -56,14 +39,8 @@ template<typename _t> void pary(_t _a,_t _b){_OUTC(cerr,_a,_b);cerr<<endl;}
 #else
 #define debug(...)
 #define pary(...)
+#define IOS
 #endif
-#define endl '\n'
-#define IOS ios_base::sync_with_stdio();cin.tie(0);
-#define MS0(x) memset((x),0,sizeof((x)))
-#define MS1(x) memset((x),-1,sizeof((x)))
-#define RI(x) x=rit()
-#define RII(a,b) a=rit(),b=rit()
-#define RIII(a,b,c) a=rit(),b=rit(),c=rit()
 const int bufS = 1 << 20; // buffer size
 static char buf[bufS], *p = buf, *q = buf, pbuf[bufS], pp = -1;
 const int INF = 2147483647;
