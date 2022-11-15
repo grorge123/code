@@ -42,7 +42,8 @@ template<typename _t> void pary(_t _a,_t _b){_OUTC(cerr,_a,_b);cerr<<endl;}
 #define IOS
 #endif
 const int bufS = 1 << 20; // buffer size
-static char buf[bufS], *p = buf, *q = buf, pbuf[bufS], pp = -1;
+static char buf[bufS], *p = buf, *q = buf, pbuf[bufS];
+static int pp = -1;
 const int INF = 2147483647;
 const int mod = 1e9+7;
 const LL seed = 0xdefaced;
