@@ -67,13 +67,14 @@ inline LL rit(){
     LL f=0,key=1;
     char c;
     do{
-        c = getchar();
-//        c = readchar();
+//        c = getchar();
+        c = readchar();
         if(c=='-') key=-1;
     }while(c<'0' || c>'9');
     do{
         f=f*10+c-'0';
-        c=getchar();
+//        c=getchar();
+        c = readchar();
     }while(c>='0' && c<='9');
     return f*key;
 }
