@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include<bits/extc++.h>
 //#include<bits/extc++.h>
 //using namespace __gnu_cxx;
 //using namespace __gnu_pbds;
@@ -13,6 +13,7 @@ typedef pair<int,int> pii;
 #define LL long long int
 #define min(a,b) (a>b?b:a)
 #define max(a,b) (a>b?a:b)
+#define grorge
 #ifdef grorge
 #define IOS
 #define debug(...) do{\
@@ -36,11 +37,14 @@ template<typename _a> ostream &operator << (ostream &_s,vector<_a> &_c){return _
 template<typename _a> ostream &operator << (ostream &_s,set<_a> &_c){return _OUTC(_s,ALL(_c));}
 template<typename _a,typename _b> ostream &operator << (ostream &_s,map<_a,_b> &_c){return _OUTC(_s,ALL(_c));}
 template<typename _t> void pary(_t _a,_t _b){_OUTC(cerr,_a,_b);cerr<<endl;}
+#define readc() getchar()
 #else
 #define debug(...)
 #define pary(...)
 #define IOS ios::sync_with_stdio(0);cin.tie(0);
+#define readc() readchar()
 #endif
+
 const int bufS = 1 << 20; // buffer size
 static char buf[bufS], *p = buf, *q = buf, pbuf[bufS];
 static int pp = -1;
@@ -60,27 +64,33 @@ inline void print(int x, char en='\n'){
     pbuf[++pp] = en;
 }
 inline char readchar() {
-	if(p == q && (q = (p=buf)+fread(buf,1,bufS,stdin)) == buf) return EOF;
+	if(p == q && (q = (p=buf)+fread(buf,1,bufS,stdin)) == buf){
+	 return EOF;
+	}
 	return *p++;
 }
 inline LL rit(){
     LL f=0,key=1;
     char c;
     do{
-//        c = getchar();
-        c = readchar();
+        c = readc();
         if(c=='-') key=-1;
     }while(c<'0' || c>'9');
     do{
         f=f*10+c-'0';
-//        c=getchar();
-        c = readchar();
+        c = readc();
     }while(c>='0' && c<='9');
     return f*key;
 }
+
 int main(){
     IOS
+    auto start = std::chrono::system_clock::now();
+
 
     flush();
+    auto end = std::chrono::system_clock::now();
+    std::chrono::duration<double> diff = end - start;
+    cerr << "TIME:" << (diff.count()) << endl;
     return 0;
 }
