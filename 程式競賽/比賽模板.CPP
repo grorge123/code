@@ -45,7 +45,7 @@ template<typename _t> void pary(_t _a,_t _b){_OUTC(cerr,_a,_b);cerr<<endl;}
 #define readc() readchar()
 #endif
 
-const int bufS = 1 << 20; // buffer size
+const int bufS = 1 << 21; // buffer size
 static char buf[bufS], *p = buf, *q = buf, pbuf[bufS];
 static int pp = -1;
 const int INF = 2147483647;
@@ -54,7 +54,7 @@ const LL seed = 0xdefaced;
 inline void flush(){
     fwrite(pbuf, 1, pp + 1, stdout), pp = -1;
 }
-inline void print(int x, char en='\n'){
+inline void print(LL x, char en='\n'){
     static char sta[20];
     int top = 0;
     if(pp > 1 << 20) flush();
